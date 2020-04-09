@@ -14,27 +14,17 @@ connection.onclose = function(){
 };
 
 function sendRGB() {
-    var r = document.getElementById('r').value**2/1023;
-    var g = document.getElementById('g').value**2/1023;
-    var b = document.getElementById('b').value**2/1023;
-    
 
-
-    var rgb = r << 20 | g << 10 | b;
-    var rgbstr = '#'+ rgb.toString(16); 
-         /*document.getElementById("pagina").style.backgroundColor = rgb;*/
-    console.log('RGB: ' + rgbstr); 
-    connection.send(rgbstr);
 }
 
 function vermelho(){
-        connection.send("RED");
+        connection.send("sangue");
 }
 function verde(){
-        connection.send("GRENN");
+        connection.send("grama");
 }
 function azul(){
-        connection.send("BLUE");
+        connection.send("ceu");
 }
 
 function amarelo(){

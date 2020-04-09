@@ -19,8 +19,9 @@ const char *password = "94777463";   // The password required to connect to it, 
 const char *OTAName = "94777463";           // A name and a password for the OTA service
 const char *OTAPassword = "";
 
-const char LONGIN = "Matheus";
 const char SENHA = "94777463";
+String LOGIN = "Matheus";
+String SENHA = "94777463";
 
 #define LED_RED     15            // specify the pins with an RGB LED connected
 #define LED_GREEN   12
@@ -39,19 +40,20 @@ void setup() {
   Serial.begin(115200);        // Start the Serial communication to send messages to the computer
   delay(10);
   Serial.println("\r\n");
+  Serial.println("Serial Iniciado");
 
   startWiFi();                 // Start a Wi-Fi access point, and try to connect to some given access points. Then wait for either an AP or STA connection
-  
+
   startOTA();                  // Start the OTA service
-  
+
   startSPIFFS();               // Start the SPIFFS and list all contents
 
   startWebSocket();            // Start a WebSocket server
-  
+
   startMDNS();                 // Start the mDNS responder
 
   startServer();               // Start a HTTP server with a file read handler and an upload handler
-  
+
 }
 
 
@@ -67,11 +69,11 @@ void loop() {
   server.handleClient();                      // run the server
   ArduinoOTA.handle();                        // listen for OTA events
 
-  if(rainbow) {                               // if the rainbow effect is turned on
-    if(millis() > prevMillis + 32) {          
-      if(++hue == 360)                        // Cycle through the color wheel (increment by one degree every 32 ms)
+  if (rainbow) {                              // if the rainbow effect is turned on
+    if (millis() > prevMillis + 32) {
+      if (++hue == 360)                       // Cycle through the color wheel (increment by one degree every 32 ms)
         hue = 0;
-      setHue(hue);                            // Set the RGB LED to the right color
+      /*      setHue(hue);             */               // Set the RGB LED to the right color
       prevMillis = millis();
     }
   }
@@ -85,7 +87,7 @@ void startWiFi() { // Start a Wi-Fi access point, and try to connect to some giv
   Serial.print(ssid);
   Serial.println("\" started\r\n");
 
-  wifiMulti.addAP(LONGIN, SENHA);   // add Wi-Fi networks you want to connect to
+  wifiMulti.addAP("Matheus", "94777463");   // add Wi-Fi networks you want to connect to
 
 
   Serial.println("Connecting");
@@ -94,7 +96,7 @@ void startWiFi() { // Start a Wi-Fi access point, and try to connect to some giv
     Serial.print('.');
   }
   Serial.println("\r\n");
-  if(WiFi.softAPgetStationNum() == 0) {      // If the ESP is connected to an AP
+  if (WiFi.softAPgetStationNum() == 0) {     // If the ESP is connected to an AP
     Serial.print("Connected to ");
     Serial.println(WiFi.SSID());             // Tell us what network we're connected to
     Serial.print("IP address:\t");
@@ -162,11 +164,11 @@ void startMDNS() { // Start the mDNS responder
 
 void startServer() { // Start a HTTP server with a file read handler and an upload handler
   server.on("/edit.html",  HTTP_POST, []() {  // If a POST request is sent to the /edit.html address,
-    server.send(200, "text/plain", ""); 
+    server.send(200, "text/plain", "");
   }, handleFileUpload);                       // go to 'handleFileUpload'
 
   server.onNotFound(handleNotFound);          // if someone requests any other file or page, go to function 'handleNotFound'
-                                              // and check if the file exists
+  // and check if the file exists
 
   server.begin();                             // start the HTTP server
   Serial.println("HTTP server started.");
@@ -174,8 +176,8 @@ void startServer() { // Start a HTTP server with a file read handler and an uplo
 
 /*__________________________________________________________SERVER_HANDLERS__________________________________________________________*/
 
-void handleNotFound(){ // if the requested file or page doesn't exist, return a 404 not found error
-  if(!handleFileRead(server.uri())){          // check if the file exists in the flash memory (SPIFFS), if so, send it
+void handleNotFound() { // if the requested file or page doesn't exist, return a 404 not found error
+  if (!handleFileRead(server.uri())) {        // check if the file exists in the flash memory (SPIFFS), if so, send it
     server.send(404, "text/plain", "404: File Not Found");
   }
 }
@@ -202,28 +204,28 @@ bool handleFileRead(String path) { // send the right file to the client (if it e
 
 /*_______________________________ Upload a new file to the SPIFFS______________________________________________________*/
 
-void handleFileUpload(){ // upload a new file to the SPIFFS
+void handleFileUpload() { // upload a new file to the SPIFFS
   HTTPUpload& upload = server.upload();
   String path;
-  if(upload.status == UPLOAD_FILE_START){
+  if (upload.status == UPLOAD_FILE_START) {
     path = upload.filename;
-    if(!path.startsWith("/")) path = "/"+path;
-    if(!path.endsWith(".gz")) {                          // The file server always prefers a compressed version of a file 
-      String pathWithGz = path+".gz";                    // So if an uploaded file is not compressed, the existing compressed
-      if(SPIFFS.exists(pathWithGz))                      // version of that file must be deleted (if it exists)
-         SPIFFS.remove(pathWithGz);
+    if (!path.startsWith("/")) path = "/" + path;
+    if (!path.endsWith(".gz")) {                         // The file server always prefers a compressed version of a file
+      String pathWithGz = path + ".gz";                  // So if an uploaded file is not compressed, the existing compressed
+      if (SPIFFS.exists(pathWithGz))                     // version of that file must be deleted (if it exists)
+        SPIFFS.remove(pathWithGz);
     }
     Serial.print("handleFileUpload Name: "); Serial.println(path);
     fsUploadFile = SPIFFS.open(path, "w");            // Open the file for writing in SPIFFS (create if it doesn't exist)
     path = String();
-  } else if(upload.status == UPLOAD_FILE_WRITE){
-    if(fsUploadFile)
+  } else if (upload.status == UPLOAD_FILE_WRITE) {
+    if (fsUploadFile)
       fsUploadFile.write(upload.buf, upload.currentSize); // Write the received bytes to the file
-  } else if(upload.status == UPLOAD_FILE_END){
-    if(fsUploadFile) {                                    // If the file was successfully created
+  } else if (upload.status == UPLOAD_FILE_END) {
+    if (fsUploadFile) {                                   // If the file was successfully created
       fsUploadFile.close();                               // Close the file again
       Serial.print("handleFileUpload Size: "); Serial.println(upload.totalSize);
-      server.sendHeader("Location","/success.html");      // Redirect the client to the success page
+      server.sendHeader("Location", "/success.html");     // Redirect the client to the success page
       server.send(303);
     } else {
       server.send(500, "text/plain", "500: couldn't create file");
@@ -252,16 +254,34 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t lenght
         int r = ((rgb >> 20) & 0x3FF);                     // 10 bits per color, so R: bits 20-29
         int g = ((rgb >> 10) & 0x3FF);                     // G: bits 10-19
         int b =          rgb & 0x3FF;                      // B: bits  0-9
+      }
 
-        analogWrite(LED_RED,   r);                         // write it to the LED output pins
-        analogWrite(LED_GREEN, g);
-        analogWrite(LED_BLUE,  b);
-      } else if (payload[0] == 'R') {                      // the browser sends an R when the rainbow effect is enabled
-        rainbow = true;
-      } else if (payload[0] == 'N') {                      // the browser sends an N when the rainbow effect is disabled
-        rainbow = false;
+      else if (payload[0] == 'R') { // the browser sends an R when the rainbow effect is enabled
+        digitalWrite(LED_RED, 1);
+        digitalWrite(LED_GREEN, 0);
+        digitalWrite(LED_BLUE, 0);
+      }
+
+      else if (payload[0] == 'G') {// the browser sends an R when the rainbow effect is enabled
+        digitalWrite(LED_RED, 0);
+        digitalWrite(LED_GREEN, 1);
+        digitalWrite(LED_BLUE, 0);
+      }
+
+      else if (payload[0] == 'B') { // the browser sends an R when the rainbow effect is enabled
+        digitalWrite(LED_RED, 0);
+        digitalWrite(LED_GREEN, 0);
+        digitalWrite(LED_BLUE, 1);
+      }
+
+      else if (payload[2] == 'L') { // the browser sends an R when the rainbow effect is enabled
+        digitalWrite(LED_RED, 0);
+        digitalWrite(LED_GREEN, 0);
+        analogWrite(LED_BLUE, 75);
       }
       break;
+
+      
   }
 }
 
@@ -288,12 +308,12 @@ String getContentType(String filename) { // determine the filetype of a given fi
 
 
 /*
-void setHue(int hue) { // Set the RGB LED to a given hue (color) (0° = Red, 120° = Green, 240° = Blue)
+  void setHue(int hue) { // Set the RGB LED to a given hue (color) (0° = Red, 120° = Green, 240° = Blue)
   hue %= 360;                   // hue is an angle between 0 and 359°
   float radH = hue*3.142/180;   // Convert degrees to radians
   float rf, gf, bf;
-  
-  if(hue>=0 && hue<120){        // Convert from HSI color space to RGB              
+
+  if(hue>=0 && hue<120){        // Convert from HSI color space to RGB
     rf = cos(radH*3/4);
     gf = sin(radH*3/4);
     bf = 0;
@@ -311,9 +331,9 @@ void setHue(int hue) { // Set the RGB LED to a given hue (color) (0° = Red, 120
   int r = rf*rf*1023;
   int g = gf*gf*1023;
   int b = bf*bf*1023;
-  
+
   analogWrite(LED_RED,   r);    // Write the right color to the LED output pins
   analogWrite(LED_GREEN, g);
   analogWrite(LED_BLUE,  b);
-}
+  }
 */

@@ -19,27 +19,16 @@ const char *password = "94777463";   // The password required to connect to it, 
 const char *OTAName = "94777463";           // A name and a password for the OTA service
 const char *OTAPassword = "";
 
+const char LONGIN = "Matheus";
+const char SENHA = "94777463";
+
 #define LED_RED     15            // specify the pins with an RGB LED connected
 #define LED_GREEN   12
 #define LED_BLUE    13
 
 const char* mdnsName = "esp8266"; // Domain name for the mDNS responder
 
-/*y
-void startSPIFFS() { // Start the SPIFFS and list all contents
-  SPIFFS.begin();                             // Start the SPI Flash File System (SPIFFS)
-  Serial.println("SPIFFS started. Contents:");
-  {
-    Dir dir = SPIFFS.openDir("/");
-    while (dir.next()) {                      // List the file system contents
-      String fileName = dir.fileName();
-      size_t fileSize = dir.fileSize();
-      Serial.printf("\tFS File: %s, size: %s\r\n", fileName.c_str(), formatBytes(fileSize).c_str());
-    }
-    Serial.printf("\n");
-  }
-}
-*/
+
 /*__________________________________________________________SETUP__________________________________________________________*/
 
 void setup() {
@@ -96,7 +85,7 @@ void startWiFi() { // Start a Wi-Fi access point, and try to connect to some giv
   Serial.print(ssid);
   Serial.println("\" started\r\n");
 
-  wifiMulti.addAP("Matheus", "94777463");   // add Wi-Fi networks you want to connect to
+  wifiMulti.addAP(LONGIN, SENHA);   // add Wi-Fi networks you want to connect to
 
 
   Serial.println("Connecting");
@@ -191,6 +180,8 @@ void handleNotFound(){ // if the requested file or page doesn't exist, return a 
   }
 }
 
+/*___________________________Send the right file to the client (if it exists)________________________________________________________*/
+
 bool handleFileRead(String path) { // send the right file to the client (if it exists)
   Serial.println("handleFileRead: " + path);
   if (path.endsWith("/")) path += "index.html";          // If a folder is requested, send the index file
@@ -208,6 +199,8 @@ bool handleFileRead(String path) { // send the right file to the client (if it e
   Serial.println(String("\tFile Not Found: ") + path);   // If the file doesn't exist, return false
   return false;
 }
+
+/*_______________________________ Upload a new file to the SPIFFS______________________________________________________*/
 
 void handleFileUpload(){ // upload a new file to the SPIFFS
   HTTPUpload& upload = server.upload();
@@ -237,6 +230,9 @@ void handleFileUpload(){ // upload a new file to the SPIFFS
     }
   }
 }
+
+
+//________________________________ When a WebSocket message is received__________________________________________________/
 
 void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t lenght) { // When a WebSocket message is received
   switch (type) {
@@ -290,6 +286,8 @@ String getContentType(String filename) { // determine the filetype of a given fi
   return "text/plain";
 }
 
+
+/*
 void setHue(int hue) { // Set the RGB LED to a given hue (color) (0° = Red, 120° = Green, 240° = Blue)
   hue %= 360;                   // hue is an angle between 0 and 359°
   float radH = hue*3.142/180;   // Convert degrees to radians
@@ -318,3 +316,4 @@ void setHue(int hue) { // Set the RGB LED to a given hue (color) (0° = Red, 120
   analogWrite(LED_GREEN, g);
   analogWrite(LED_BLUE,  b);
 }
+*/

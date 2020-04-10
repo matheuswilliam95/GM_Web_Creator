@@ -7,38 +7,111 @@
 }
 
 .corpo{
-    background-color: blue;
-    padding: 3%;
-    padding-top: 0%;
-    padding-bottom: 0%;
+    background-color: rgb(43, 43, 43);
+    color
 
-    margin: 1%;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    padding-left: 3%;
+    padding-right:3%;
+
+    margin: %;
     margin-top: 1%;
+    margin: 3%; 
+    
 }
 
 body{
     padding: 0%;
-    margin: 3%; 
+    background-color: rgb(30, 30, 30);
+    color: white;
 }
 
-header{
-    color: #FFF;
-    font-size: 2.5em;
-    background-color: rgb(185, 31, 31);
-    position: fixed;
-    top: 0;
-    left: 0;
-    width:100%;
-    height: 100px;
-    text-align:center;
-  }
-  header.smaller{
-    height: 10%;
-    background-color: (rgb(87, 78, 0));
-    margin-bottom: 30%;
-  }
+ul {
+  background: #dfab00;
+  display: flex;
+  list-style: none;
+  width: 100%;
+  font-size: 18px;
+  height: 5vh;
+  align-items: center;
+  justify-content: space-evenly;
 
-  main{
-    position:relative;
-    top: 150px;
-  }
+}
+
+a{
+  color: black;
+  text-decoration: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1.8vh;
+}
+
+header {
+  background: #000000;
+  height: 20vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  margin: 0;
+}
+
+nav {
+  position: sticky;
+  top: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+#logo-img{
+  background-image: url("https://images.adsttc.com/media/images/5d70/0bd9/284d/d102/9500/05ef/medium_jpg/P_E_659-254-E_copy-MEDIA.jpg");
+  position: relative; 
+  background-size: 100%;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  /* filter: blur(3px); */
+  background-color: black;
+}
+
+.inf{
+  background-color: rgba(0, 0, 0, 65%);
+  width: 100%;
+  height: 100%;
+}
+
+.infor{
+  background-color: transparent;
+  position: absolute;
+  bottom: 10px;
+
+
+}
+
+.infor-resume{
+  color: rgba(255, 255, 255, 1);
+  opacity: 100%;
+  padding-bottom: 1vh;
+}
+
+.tit-val{
+  display: inline-block;
+  background-color: transparent;
+}
+
+.tit{
+  font-size: 1.5vh;
+  font-family: Arial, Helvetica, sans-serif;
+  text-shadow: 0.1em 0.1em 0.2em black;
+  padding-bottom: .8vh;
+  font-weight: 10;
+  
+}
+.val{
+  font-size: 3vh;
+  font-family: Arial, Helvetica, sans-serif;
+  text-shadow: 0.1em 0.1em 0.2em black;
+  font-weight: 10;
+}

@@ -44,6 +44,7 @@ a{
   text-decoration: none;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 1.8vh;
+  font-weight: bold;
 }
 
 header {
@@ -105,7 +106,7 @@ html {
   font-size: 1.5vh;
   font-family: Arial, Helvetica, sans-serif;
   text-shadow: 0.1em 0.1em 0.2em black;
-  padding-bottom: .8vh;
+  padding-bottom: 1.2vh;
   font-weight: 10;
   
 }
@@ -114,4 +115,9 @@ html {
   font-family: Arial, Helvetica, sans-serif;
   text-shadow: 0.1em 0.1em 0.2em black;
   font-weight: 10;
+}
+
+#infor-destaque{
+  font-size: 3.7vh;
+  font-weight: 500;
 }

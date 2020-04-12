@@ -8,17 +8,22 @@
 
 .corpo{
     background-color: rgb(43, 43, 43);
-    color
+    border-radius: 2vh;
 
     padding-top: 3%;
     padding-bottom: 3%;
     padding-left: 3%;
     padding-right:3%;
 
-    margin: %;
+    margin: 5%;
     margin-top: 1%;
     margin: 3%; 
     
+}
+
+.titulo{
+  font-size: 6vh;
+  text-align: center;
 }
 
 body{
@@ -28,7 +33,7 @@ body{
 }
 
 ul {
-  background: #dfab00;
+  background: #ffc400;
   display: flex;
   list-style: none;
   width: 100%;
@@ -120,4 +125,101 @@ html {
 #infor-destaque{
   font-size: 3.7vh;
   font-weight: 500;
+}
+
+/*________________________________________________ Switch ___________________________________________________*/
+/* The switch - the box around the slider */
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc; /*Fundo Desligado*/
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: rgb(131, 131, 131); /*Bolinha*/
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;  /*Fundo ligado*/
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px black; /*Sobra contorno.*/
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+/*__________________________________________________   _______________________________________________*/
+
+.icone{
+  width: 6vh;
+  height: 6vh;
+  background-color: transparent;
+}
+
+.itens{
+  margin-bottom:  1vh;
+}
+
+.itens-ratio{
+  background-color: rgb(55, 55, 55);
+  height: 12vh;
+  border-radius: 2vh;
+}
+
+.item-icon{
+  width: 25%;
+  text-align: center;
+}
+
+.item-descricao{
+  width: 50%;
+  text-align: left;
+  font-size: 2.5vh;
+}
+
+.item-mudador{
+  width: 25%;
 }

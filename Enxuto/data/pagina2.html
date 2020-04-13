@@ -19,28 +19,42 @@
     <header>
         <div id="logo-img">
             <div class="inf">
-                <div class="titulo">
-                    Quarto
-                </div>
-                <ul class="infor">
-                    <li class="infor-resume">
-                        <ul class="tit-val">
-                            <li class="tit">Temperatura</li>
-                            <li class="val" id="infor-destaque">22°C</li>
-                        </ul>
-                    </li>
-                    <li class="infor-resume">
-                        <ul class="tit-val">
-                            <li class="tit">Umidade</li>
-                            <li class="val">86%</li>
-                        </ul>
-                    </li>
-                    <li class="infor-resume">
-                        <ul class="tit-val">
-                            <li class="tit">Claridade</li>
-                            <li class="val">7.6 lm</li>
-                    </li>
-                </ul>
+
+                <ul class="divisao-cabecalho">
+                    <!-- Divide o cabeçalho em duas partes-->
+
+                    <div class="titulo">
+                        Quarto
+                    </div>
+
+                    <!-- ------------------------------- Status Cabeçalho----------------- -->
+                    <ul class="infor">
+
+                        <!-- Item 01 -->
+                        <li class="infor-resume">
+                            <ul class="tit-val">
+                                <li class="tit">Temperatura</li>
+                                <li class="val" id="infor-destaque">22°C</li>
+                            </ul>
+                        </li>
+
+                        <!-- Item 02 -->
+                        <li class="infor-resume">
+                            <ul class="tit-val">
+                                <li class="tit">Umidade</li>
+                                <li class="val">86%</li>
+                            </ul>
+                        </li>
+
+                        <!-- Item 03 -->
+                        <li class="infor-resume">
+                            <ul class="tit-val">
+                                <li class="tit">Claridade</li>
+                                <li class="val">7.6 klm</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- ---------------------------------- Fim Status Cabeçalho ------------- -->
                 </ul>
             </div>
         </div>
@@ -57,8 +71,8 @@
         </nav>
 
         <!-- ---------------------------------------Inicio Itens --------------------------------------------- -->
-        
-        
+
+
         <!-- Lampada -->
         <div class="corpo">
             <div class="itens">
@@ -70,10 +84,15 @@
                         Lâmpada
                     </li>
                     <li class="item-mudador">
-                        <label class="switch">
-                            <input type="checkbox">
-                            <span class="slider round"></span>
-                        </label>
+
+                        <div class="onoffswitch">
+                            <input type="checkbox" name="onoffswitch1" class="onoffswitch-checkbox" id="myonoffswitch1"  onclick="myFunction('myonoffswitch1')" checked>
+                            <label class="onoffswitch-label" for="myonoffswitch1">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
+
                     </li>
                 </ul>
             </div>
@@ -89,10 +108,13 @@
                         Ventilador
                     </li>
                     <li class="item-mudador">
-                        <label class="switch">
-                            <input type="checkbox">
-                            <span class="slider round"></span>
-                        </label>
+                        <div class="onoffswitch">
+                            <input type="checkbox" name="onoffswitch2" class="onoffswitch-checkbox" id="myonoffswitch2" onclick="myFunction('myonoffswitch2')" checked>
+                            <label class="onoffswitch-label" for="myonoffswitch2">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -108,10 +130,13 @@
                         Ar condicionado
                     </li>
                     <li class="item-mudador">
-                        <label class="switch">
-                            <input type="checkbox">
-                            <span class="slider round"></span>
-                        </label>
+                        <div class="onoffswitch">
+                            <input type="checkbox" name="onoffswitch3" class="onoffswitch-checkbox" id="myonoffswitch3" onclick="myFunction('myonoffswitch3')" checked>
+                            <label class="onoffswitch-label" for="myonoffswitch3">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -127,10 +152,13 @@
                         Som Ambiente
                     </li>
                     <li class="item-mudador">
-                        <label class="switch">
-                            <input type="checkbox">
-                            <span class="slider round"></span>
-                        </label>
+                        <div class="onoffswitch">
+                            <input type="checkbox" name="onoffswitch4" class="onoffswitch-checkbox" id="myonoffswitch4" onclick="myFunction('myonoffswitch4')" checked>
+                            <label class="onoffswitch-label" for="myonoffswitch4">
+                                <span class="onoffswitch-inner"></span>
+                                <span class="onoffswitch-switch"></span>
+                            </label>
+                        </div>
                     </li>
                 </ul>
             </div>

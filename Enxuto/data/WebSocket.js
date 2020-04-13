@@ -20,15 +20,36 @@ connection.onclose = function () {
 
 /*_________________________ Funções de Send dados ________________________________*/
 function amarelo() {
-    connection.send("YELLOW")
+    connection.send("YELLOW");
 }
 
 
 /*_________________________ Miniminiza o menu ____________________________________*/
-$(window).scroll(function() {
+$(window).scroll(function () {
     if ($(document).scrollTop() > 100) {
-      $('header').addClass('smaller');
+        $('header').addClass('smaller');
     } else {
-      $('header').removeClass('smaller');
+        $('header').removeClass('smaller');
     }
-  });
+});
+
+
+/*________________________ Função JS ____________________________________________*/
+function myFunction(valor) {
+
+    var checkBox = document.getElementById(valor);
+    var valorReal = valor;
+
+
+    if (checkBox.checked == true) {
+        //console.log(valorReal +  ' Ligado');
+        var ligaReal = valorReal + 'ligado';
+        console.log(ligaReal);
+        connection.send(ligaReal);
+    } else {
+        //console.log(valorReal +  ' Desligado');
+        var desligaReal = valorReal + 'desligado';
+        console.log(desligaReal);
+        connection.send(desligaReal);
+    }
+}

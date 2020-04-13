@@ -223,21 +223,31 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t * payload, size_t lenght
 
       
       
-      if (Leitura == "sangue") {
+            if (Leitura == "myonoffswitch1ligado") {
         digitalWrite(LED_RED, 1);    // turn off the LEDs
-        digitalWrite(LED_GREEN, 0);
-        digitalWrite(LED_BLUE, 0);
       }
-      if (Leitura == "grama") {
+            if (Leitura == "myonoffswitch1desligado") {
         digitalWrite(LED_RED, 0);    // turn off the LEDs
-        digitalWrite(LED_GREEN, 1);
-        digitalWrite(LED_BLUE, 0);
       }
-      if (Leitura == "ceu") {
+            if (Leitura == "myonoffswitch2ligado") {
+        digitalWrite(LED_GREEN, 1);    // turn off the LEDs
+      }
+            if (Leitura == "myonoffswitch2desligado") {
+        digitalWrite(LED_GREEN, 0);    // turn off the LEDs
+      }
+            if (Leitura == "myonoffswitch3ligado") {
+        digitalWrite(LED_BLUE, 1);    // turn off the LEDs
+      }
+            if (Leitura == "myonoffswitch3desligado") {
+        digitalWrite(LED_BLUE, 0);    // turn off the LEDs
+      }
+            if (Leitura == "myonoffswitch4ligado") {
+        digitalWrite(LED_RED, 1);    // turn off the LEDs
+      }
+            if (Leitura == "myonoffswitch4desligado") {
         digitalWrite(LED_RED, 0);    // turn off the LEDs
-        digitalWrite(LED_GREEN, 0);
-        digitalWrite(LED_BLUE, 1);
       }
+
       break;
   }
 }

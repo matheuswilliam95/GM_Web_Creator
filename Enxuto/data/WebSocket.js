@@ -42,14 +42,10 @@ function myFunction(valor) {
 
 
     if (checkBox.checked == true) {
-        //console.log(valorReal +  ' Ligado');
         var ligaReal = valorReal + 'ligado';
-        console.log(ligaReal);
         connection.send(ligaReal);
     } else {
-        //console.log(valorReal +  ' Desligado');
         var desligaReal = valorReal + 'desligado';
-        console.log(desligaReal);
         connection.send(desligaReal);
     }
 }

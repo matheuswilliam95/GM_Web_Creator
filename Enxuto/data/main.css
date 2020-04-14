@@ -188,6 +188,7 @@ html {
   background-color: transparent;
 }
 
+
 .itens{
   margin-bottom:  1vh;
 }
@@ -211,4 +212,9 @@ html {
 
 .item-mudador{
   width: 25%;
+}
+
+.IDPAGE{
+  color: transparent;
+  font-size: 0vh;
 }

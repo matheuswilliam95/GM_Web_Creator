@@ -18,6 +18,8 @@ String Leitura;
 #define LED_GREEN   12
 #define LED_BLUE    13
 
+int j = 0;
+
 /*__________________________________________________________SETUP__________________________________________________________*/
 
 void setup() {
@@ -51,6 +53,8 @@ unsigned long prevMillis = millis();
 int hue = 0;
 
 void loop() {
+  j++;
+  webSocket.sendTXT(0, j);
   webSocket.loop();                           // constantly check for websocket events
   server.handleClient();                      // run the server
   ArduinoOTA.handle();                        // listen for OTA events

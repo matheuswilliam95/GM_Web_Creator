@@ -54,10 +54,10 @@ int hue = 0;
 
 void loop()
 {
-  if ((millis() - lastTime) > 100)
+  if ((millis() - lastTime) > 2000)
   {
     contador++;
-    String message = (String(contador)+" °C");
+    String message = (String("T") + String("KK") + String(contador) + String("KK") + String("°C") + String("KK") + String("U") + String("KK") + String(contador + 5) + String("KK") + String("%") + String("KK") + String("L") + String("KK") + String(contador + 20) + "KK" + " lm");
     webSocket.broadcastTXT(message);
     lastTime = millis();
   }

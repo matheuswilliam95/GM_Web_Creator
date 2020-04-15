@@ -2,6 +2,7 @@
 var rainbowEnable = false;
 var connection = new WebSocket('ws://' + location.hostname + ':81/', ['arduino']);
 var mensagensRecebidas;
+var resultado = [];
 
 /*_______________________ Funções Padrões Web Socket _____________________________*/
 connection.onopen = function () {
@@ -11,10 +12,15 @@ connection.onerror = function (error) {
     console.log('WebSocket Error ', error);
 };
 connection.onmessage = function (e) {
-    
+
     mensagensRecebidas = e.data;
-    console.log(mensagensRecebidas);
+    console.log("recebido " + mensagensRecebidas);
     updateCounterUI(mensagensRecebidas);
+
+    var separando = mensagensRecebidas;
+    resultado = separando.split('KK')
+    console.log(resultado);
+
 };
 
 
@@ -26,10 +32,12 @@ connection.onclose = function () {
 /*____________________ Atualiza valor temp ____________________________________*/
 
 
-function updateCounterUI(counter)
-{   
-    console.log(counter);
-    document.getElementById('infor-destaque').innerHTML = counter;
+function updateCounterUI(counter) {
+    // console.log(counter);
+    document.getElementById('infor-temperatura').innerHTML = (resultado[1] + resultado[2]);
+    // console.log(resultado[1]);
+    document.getElementById('infor-umidade').innerHTML = (resultado[4] + resultado[5]);
+    document.getElementById('infor-luminosidade').innerHTML = (resultado[7] + resultado[8]);
 }
 
 

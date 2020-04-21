@@ -4,23 +4,46 @@
 #include <ESP8266WebServer.h>
 #include <FS.h>
 #include <WebSocketsServer.h>
+#include "DHTesp.h"
+
+#define DHTpin 14 //D5 of NodeMCU is GPIO14
+DHTesp dht;
 
 ESP8266WiFiMulti wifiMulti;     // Create an instance of the ESP8266WiFiMulti class, called 'wifiMulti'
 ESP8266WebServer server(80);    // create a web server on port 80
 WebSocketsServer webSocket(81); // create a websocket server on port 81
 File fsUploadFile;              // a File variable to temporarily store the received file
 
+/*______________________________________ WIFI Setup ______________________________________*/
 const char *OTAName = "94777463"; // A name and a password for the OTA service
 const char *OTAPassword = "";
+const char* REDE = "Matheus";
+const char* SENHA = "94777463";
+
+//DEFINIÇÃO DE IP FIXO PARA O NODEMCU
+IPAddress ip(192,168,0,11); //COLOQUE UMA FAIXA DE IP DISPONÍVEL DO SEU ROTEADOR. EX: 192.168.1.110 **** ISSO VARIA, NO MEU CASO É: 192.168.0.175
+IPAddress gateway(192,168,0,1); //GATEWAY DE CONEXÃO (ALTERE PARA O GATEWAY DO SEU ROTEADOR)
+IPAddress subnet(255,255,255,0); //MASCARA DE REDE
+
+
+
+/*______________________________________ Declarações _____________________________________*/
 String Leitura;
 
 #define LED_RED 15 // specify the pins with an RGB LED connected
 #define LED_GREEN 12
 #define LED_BLUE 13
 
+bool DESLIGADO = 1;
+bool LIGADO = 0;
+
 int contador = 0;
 
 int lastTime = 0;
+
+int umidadeLocal = 0;
+int temperaturaLocal = 0;
+int luminosidadeLocal = 0;
 /*__________________________________________________________SETUP__________________________________________________________*/
 
 void setup()
@@ -29,24 +52,33 @@ void setup()
   pinMode(LED_RED, OUTPUT); // the pins with LEDs connected are outputs
   pinMode(LED_GREEN, OUTPUT);
   pinMode(LED_BLUE, OUTPUT);
-  digitalWrite(LED_RED, 0); // turn off the LEDs
-  digitalWrite(LED_GREEN, 0);
-  digitalWrite(LED_BLUE, 0);
+  digitalWrite(LED_RED, DESLIGADO); // turn off the LEDs
+  digitalWrite(LED_GREEN, DESLIGADO);
+  digitalWrite(LED_BLUE, DESLIGADO);
 
   Serial.begin(115200); // Start the Serial communication to send messages to the computer
   delay(10);
   Serial.println("\r\n");
   Serial.println("Serial Iniciado");
 
+  dht.setup(DHTpin, DHTesp::DHT11);
+
+  delay(2000);
   startWiFi();      // Start a Wi-Fi access point, and try to connect to some given access points. Then wait for either an AP or STA connection
   startOTA();       // Start the OTA service
   startSPIFFS();    // Start the SPIFFS and list all contents
   startWebSocket(); // Start a WebSocket server
   startServer();    // Start a HTTP server with a file read handler and an upload handler
 }
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 /*__________________________________________________________LOOP__________________________________________________________*/
-
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 bool rainbow = false; // The rainbow effect is turned off on startup
 
 unsigned long prevMillis = millis();
@@ -56,8 +88,22 @@ void loop()
 {
   if ((millis() - lastTime) > 2000)
   {
+
+    delay(dht.getMinimumSamplingPeriod());
+
+    float humidity = dht.getHumidity();
+    float temperature = dht.getTemperature();
+
+    temperaturaLocal = temperature;
+    umidadeLocal = humidity;
+
+    Serial.print(dht.getStatusString());
+
+    Serial.println(humidity);
+    Serial.println(temperature);
+
     contador++;
-    String message = (String("T") + String("KK") + String(contador) + String("KK") + String("°C") + String("KK") + String("U") + String("KK") + String(contador + 5) + String("KK") + String("%") + String("KK") + String("L") + String("KK") + String(contador + 20) + "KK" + " lm");
+    String message = (String("T") + String("KK") + String(temperaturaLocal) + String("KK") + String("°C") + String("KK") + String("U") + String("KK") + String(umidadeLocal) + String("KK") + String("%") + String("KK") + String("L") + String("KK") + String(contador + 20) + "KK" + " lm");
     webSocket.broadcastTXT(message);
     lastTime = millis();
   }
@@ -77,13 +123,23 @@ void loop()
     }
   }
 }
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 /*_________________________________________________ SETUP FUNCTIONS ESSENTIALS __________________________________________________________*/
 
 void startWiFi()
 {                                         // Start a Wi-Fi access point, and try to connect to some given access points. Then wait for either an AP or STA connection
-  wifiMulti.addAP("Matheus", "94777463"); // add Wi-Fi networks you want to connect to
-
+  //wifiMulti.addAP(REDE, SENHA); // add Wi-Fi networks you want to connect to
+  WiFi.begin(REDE, SENHA); //PASSA OS PARÂMETROS PARA A FUNÇÃO QUE VAI FAZER A CONEXÃO COM A REDE SEM FIO
+  WiFi.config(ip, gateway, subnet); //PASSA OS PARÂMETROS PARA A FUNÇÃO QUE VAI SETAR O IP FIXO NO NODEMCU
+ 
   Serial.println("Connecting");
   while (wifiMulti.run() != WL_CONNECTED && WiFi.softAPgetStationNum() < 1)
   { // Wait for the Wi-Fi to connect
@@ -92,7 +148,6 @@ void startWiFi()
   }
   Serial.println("Conectado ao Wifi");
 }
-
 void startOTA()
 { // Start the OTA service
   ArduinoOTA.setHostname(OTAName);
@@ -123,7 +178,6 @@ void startOTA()
   ArduinoOTA.begin();
   Serial.println("OTA ready\r\n");
 }
-
 void startSPIFFS()
 {                 // Start the SPIFFS and list all contents
   SPIFFS.begin(); // Start the SPI Flash File System (SPIFFS)
@@ -139,14 +193,12 @@ void startSPIFFS()
     Serial.printf("\n");
   }
 }
-
 void startWebSocket()
 {                                    // Start a WebSocket server
   webSocket.begin();                 // start the websocket server
   webSocket.onEvent(webSocketEvent); // if there's an incomming websocket message, go to function 'webSocketEvent'
   Serial.println("WebSocket server started.");
 }
-
 /*________________________________________________ INICIANDO SERVIDOR _______________________________________________________________*/
 void startServer()
 { // Start a HTTP server with a file read handler and an upload handler
@@ -162,7 +214,6 @@ void startServer()
   server.begin(); // start the HTTP server
   Serial.println("HTTP server started.");
 }
-
 /*__________________________________________________________SERVER_NOT FOUND__________________________________________________________*/
 
 void handleNotFound()
@@ -267,35 +318,35 @@ void webSocketEvent(uint8_t num, WStype_t type, uint8_t *payload, size_t lenght)
 
     if (Leitura == "myonoffswitch1ligado")
     {
-      digitalWrite(LED_RED, 1); // turn off the LEDs
+      digitalWrite(LED_RED, LIGADO); // turn off the LEDs
     }
     if (Leitura == "myonoffswitch1desligado")
     {
-      digitalWrite(LED_RED, 0); // turn off the LEDs
+      digitalWrite(LED_RED, DESLIGADO); // turn off the LEDs
     }
     if (Leitura == "myonoffswitch2ligado")
     {
-      digitalWrite(LED_GREEN, 1); // turn off the LEDs
+      digitalWrite(LED_GREEN, LIGADO); // turn off the LEDs
     }
     if (Leitura == "myonoffswitch2desligado")
     {
-      digitalWrite(LED_GREEN, 0); // turn off the LEDs
+      digitalWrite(LED_GREEN, DESLIGADO); // turn off the LEDs
     }
     if (Leitura == "myonoffswitch3ligado")
     {
-      digitalWrite(LED_BLUE, 1); // turn off the LEDs
+      digitalWrite(LED_BLUE, LIGADO); // turn off the LEDs
     }
     if (Leitura == "myonoffswitch3desligado")
     {
-      digitalWrite(LED_BLUE, 0); // turn off the LEDs
+      digitalWrite(LED_BLUE, DESLIGADO); // turn off the LEDs
     }
     if (Leitura == "myonoffswitch4ligado")
     {
-      digitalWrite(LED_RED, 1); // turn off the LEDs
+      digitalWrite(LED_RED, LIGADO); // turn off the LEDs
     }
     if (Leitura == "myonoffswitch4desligado")
     {
-      digitalWrite(LED_RED, 0); // turn off the LEDs
+      digitalWrite(LED_RED, DESLIGADO); // turn off the LEDs
     }
 
     break;

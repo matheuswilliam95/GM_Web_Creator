@@ -17,15 +17,13 @@ File fsUploadFile;              // a File variable to temporarily store the rece
 /*______________________________________ WIFI Setup ______________________________________*/
 const char *OTAName = "94777463"; // A name and a password for the OTA service
 const char *OTAPassword = "";
-const char* REDE = "Matheus";
-const char* SENHA = "94777463";
+const char *REDE = "Matheus";
+const char *SENHA = "94777463";
 
 //DEFINIÇÃO DE IP FIXO PARA O NODEMCU
-IPAddress ip(192,168,0,11); //COLOQUE UMA FAIXA DE IP DISPONÍVEL DO SEU ROTEADOR. EX: 192.168.1.110 **** ISSO VARIA, NO MEU CASO É: 192.168.0.175
-IPAddress gateway(192,168,0,1); //GATEWAY DE CONEXÃO (ALTERE PARA O GATEWAY DO SEU ROTEADOR)
-IPAddress subnet(255,255,255,0); //MASCARA DE REDE
-
-
+IPAddress ip(192, 168, 0, 11);      //COLOQUE UMA FAIXA DE IP DISPONÍVEL DO SEU ROTEADOR. EX: 192.168.1.110 **** ISSO VARIA, NO MEU CASO É: 192.168.0.175
+IPAddress gateway(192, 168, 0, 1);  //GATEWAY DE CONEXÃO (ALTERE PARA O GATEWAY DO SEU ROTEADOR)
+IPAddress subnet(255, 255, 255, 0); //MASCARA DE REDE
 
 /*______________________________________ Declarações _____________________________________*/
 String Leitura;
@@ -135,12 +133,13 @@ void loop()
 /*_________________________________________________ SETUP FUNCTIONS ESSENTIALS __________________________________________________________*/
 
 void startWiFi()
-{                                         // Start a Wi-Fi access point, and try to connect to some given access points. Then wait for either an AP or STA connection
-  //wifiMulti.addAP(REDE, SENHA); // add Wi-Fi networks you want to connect to
-  WiFi.begin(REDE, SENHA); //PASSA OS PARÂMETROS PARA A FUNÇÃO QUE VAI FAZER A CONEXÃO COM A REDE SEM FIO
-  WiFi.config(ip, gateway, subnet); //PASSA OS PARÂMETROS PARA A FUNÇÃO QUE VAI SETAR O IP FIXO NO NODEMCU
- 
+{ // Start a Wi-Fi access point, and try to connect to some given access points. Then wait for either an AP or STA connection
+  wifiMulti.addAP(REDE, SENHA); // add Wi-Fi networks you want to connect to
+  //WiFi.begin("Matheus", "94777463"); //PASSA OS PARÂMETROS PARA A FUNÇÃO QUE VAI FAZER A CONEXÃO COM A REDE SEM FIO
+  //WiFi.config(ip, gateway, subnet);  //PASSA OS PARÂMETROS PARA A FUNÇÃO QUE VAI SETAR O IP FIXO NO NODEMCU
+
   Serial.println("Connecting");
+
   while (wifiMulti.run() != WL_CONNECTED && WiFi.softAPgetStationNum() < 1)
   { // Wait for the Wi-Fi to connect
     delay(250);
@@ -148,6 +147,7 @@ void startWiFi()
   }
   Serial.println("Conectado ao Wifi");
 }
+
 void startOTA()
 { // Start the OTA service
   ArduinoOTA.setHostname(OTAName);

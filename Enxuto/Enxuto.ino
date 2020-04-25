@@ -7,6 +7,8 @@
 #include "DHTesp.h"
 
 #define DHTpin 14 //D5 of NodeMCU is GPIO14
+#define sLuz 16    // Sensor de luminosidade
+
 DHTesp dht;
 
 ESP8266WiFiMulti wifiMulti;     // Create an instance of the ESP8266WiFiMulti class, called 'wifiMulti'
@@ -41,11 +43,12 @@ int lastTime = 0;
 
 int umidadeLocal = 0;
 int temperaturaLocal = 0;
-int luminosidadeLocal = 0;
+String luminosidadeLocal;
 /*__________________________________________________________SETUP__________________________________________________________*/
 
 void setup()
 {
+  pinMode(sLuz, INPUT);
 
   pinMode(LED_RED, OUTPUT); // the pins with LEDs connected are outputs
   pinMode(LED_GREEN, OUTPUT);
@@ -84,8 +87,16 @@ int hue = 0;
 
 void loop()
 {
-  if ((millis() - lastTime) > 2000)
+  if ((millis() - lastTime) > 4000)
   {
+    if (digitalRead(sLuz) == HIGH)
+    {
+      luminosidadeLocal = "Baixa";
+    }
+    else
+    {
+      luminosidadeLocal = "Alta";
+    }
 
     delay(dht.getMinimumSamplingPeriod());
 
@@ -95,13 +106,14 @@ void loop()
     temperaturaLocal = temperature;
     umidadeLocal = humidity;
 
-    Serial.print(dht.getStatusString());
+    //Serial.print(dht.getStatusString());
 
-    Serial.println(humidity);
-    Serial.println(temperature);
+    //Serial.println(humidity);
+    //Serial.println(temperature);
+    Serial.print(luminosidadeLocal);
 
     contador++;
-    String message = (String("T") + String("KK") + String(temperaturaLocal) + String("KK") + String("°C") + String("KK") + String("U") + String("KK") + String(umidadeLocal) + String("KK") + String("%") + String("KK") + String("L") + String("KK") + String(contador + 20) + "KK" + " lm");
+    String message = (String("T") + String("KK") + String(temperaturaLocal) + String("KK") + String("°C") + String("KK") + String("U") + String("KK") + String(umidadeLocal) + String("KK") + String("%") + String("KK") + String("L") + String("KK") + String(luminosidadeLocal) + "KK" + " lm");
     webSocket.broadcastTXT(message);
     lastTime = millis();
   }
@@ -133,7 +145,7 @@ void loop()
 /*_________________________________________________ SETUP FUNCTIONS ESSENTIALS __________________________________________________________*/
 
 void startWiFi()
-{ // Start a Wi-Fi access point, and try to connect to some given access points. Then wait for either an AP or STA connection
+{                               // Start a Wi-Fi access point, and try to connect to some given access points. Then wait for either an AP or STA connection
   wifiMulti.addAP(REDE, SENHA); // add Wi-Fi networks you want to connect to
   //WiFi.begin("Matheus", "94777463"); //PASSA OS PARÂMETROS PARA A FUNÇÃO QUE VAI FAZER A CONEXÃO COM A REDE SEM FIO
   //WiFi.config(ip, gateway, subnet);  //PASSA OS PARÂMETROS PARA A FUNÇÃO QUE VAI SETAR O IP FIXO NO NODEMCU

@@ -1,0 +1,42 @@
+conteudo = '[
+    {
+        "icon": "lamp.png",
+        "descricao": "Lâmpada",
+        "controle": "checkbox"
+    },
+    {
+        "icon": "fan.png",
+        "descricao": "Ventilador",
+        "controle": "checkbox"
+    },
+    {
+        "icon": "vapor.png",
+        "descricao": "Umidificador",
+        "controle": "checkbox"
+    },
+    {
+        "icon": "ac.png",
+        "descricao": "Ar condicionado",
+        "controle": "checkbox"
+    },
+    {
+        "icon": "lamp.png",
+        "descricao": "Lâmpada",
+        "controle": "checkbox"
+    },
+    {
+        "icon": "lamp.png",
+        "descricao": "Lâmpada",
+        "controle": "checkbox"
+    }
+]';
+data2 = '[
+    {
+        "name": "Matheus",
+        "age": "27"
+    },
+    {
+        "name": "Willliam",
+        "age": "40"
+    }
+]';

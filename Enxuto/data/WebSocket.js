@@ -4,6 +4,7 @@ var connection = new WebSocket('ws://' + location.hostname + ':81/', ['arduino']
 var mensagensRecebidas;
 var resultado = [];
 
+
 /*_______________________ Funções Padrões Web Socket _____________________________*/
 connection.onopen = function () {
     connection.send('Connect ' + new Date());
@@ -37,7 +38,7 @@ function updateCounterUI(counter) {
     document.getElementById('infor-temperatura').innerHTML = (resultado[1] + resultado[2]);
     // console.log(resultado[1]);
     document.getElementById('infor-umidade').innerHTML = (resultado[4] + resultado[5]);
-    document.getElementById('infor-luminosidade').innerHTML = (resultado[7] + resultado[8]);
+    document.getElementById('infor-luminosidade').innerHTML = (resultado[7]);
 }
 
 
@@ -59,6 +60,21 @@ function myFunction(valor) {
         connection.send(desligaReal);
     }
 }
+
+/*_________________________ Construtor ___________________________________________*/
+function construir() {
+    
+    
+
+    var mydata = JSON.parse(conteudo);
+    var contador = Object.keys(mydata).length;
+    for (var i = 0; i < contador; i++) {
+        var oir = document.getElementsByClassName("icone")[i].src = mydata[i].icon;
+        var oir = document.getElementsByClassName("item-descricao")[i].innerHTML = mydata[i].descricao;
+    }
+}
+
+
 
 
 /*_____________________________ teste reciver _____________________________________*/

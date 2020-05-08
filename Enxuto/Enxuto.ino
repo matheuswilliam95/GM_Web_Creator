@@ -7,7 +7,8 @@
 #include "DHTesp.h"
 
 #define DHTpin 14 //D5 of NodeMCU is GPIO14
-#define sLuz 16    // Sensor de luminosidade
+#define sLuz 16   // Sensor de luminosidade
+#define sensorCombustivel A0
 
 DHTesp dht;
 
@@ -43,6 +44,9 @@ int lastTime = 0;
 
 int umidadeLocal = 0;
 int temperaturaLocal = 0;
+int leituraCombustivel = 0;
+int nivelCombustivel = 0;
+
 String luminosidadeLocal;
 /*__________________________________________________________SETUP__________________________________________________________*/
 
@@ -87,8 +91,14 @@ int hue = 0;
 
 void loop()
 {
-  if ((millis() - lastTime) > 4000)
+  if ((millis() - lastTime) > 1000)
   {
+    // Lendo nível combustível
+    leituraCombustivel = analogRead(sensorCombustivel);
+    nivelCombustivel = map(leituraCombustivel, 0, 1023, 0, 100);
+    Serial.println(nivelCombustivel);
+
+    // Lendo luminosidade
     if (digitalRead(sLuz) == HIGH)
     {
       luminosidadeLocal = "Baixa";
@@ -113,7 +123,18 @@ void loop()
     Serial.print(luminosidadeLocal);
 
     contador++;
-    String message = (String("T") + String("KK") + String(temperaturaLocal) + String("KK") + String("°C") + String("KK") + String("U") + String("KK") + String(umidadeLocal) + String("KK") + String("%") + String("KK") + String("L") + String("KK") + String(luminosidadeLocal) + "KK" + " lm");
+    String message = (String("T") +                              // 01
+                      String("KK") + String(temperaturaLocal) +  // 02
+                      String("KK") + String("°C") +              // 03
+                      String("KK") + String("U") +               // 04
+                      String("KK") + String(umidadeLocal) +      // 05
+                      String("KK") + String("%") +               // 06
+                      String("KK") + String("L") +               // 07
+                      String("KK") + String(luminosidadeLocal) + // 08
+                      String("KK") + String(" lm") +             // 09
+                      String("KK") + String(nivelCombustivel)    //10
+    );
+
     webSocket.broadcastTXT(message);
     lastTime = millis();
   }

@@ -6,13 +6,13 @@ var resultado = [];
 
 
 /*_______________________ Funções Padrões Web Socket _____________________________*/
-connection.onopen = function () {
+connection.onopen = function() {
     connection.send('Connect ' + new Date());
 };
-connection.onerror = function (error) {
+connection.onerror = function(error) {
     console.log('WebSocket Error ', error);
 };
-connection.onmessage = function (e) {
+connection.onmessage = function(e) {
 
     mensagensRecebidas = e.data;
     console.log("recebido " + mensagensRecebidas);
@@ -25,7 +25,7 @@ connection.onmessage = function (e) {
 };
 
 
-connection.onclose = function () {
+connection.onclose = function() {
     console.log('WebSocket connection closed');
 };
 
@@ -39,6 +39,8 @@ function updateCounterUI(counter) {
     // console.log(resultado[1]);
     document.getElementById('infor-umidade').innerHTML = (resultado[4] + resultado[5]);
     document.getElementById('infor-luminosidade').innerHTML = (resultado[7]);
+    console.log(resultado[10]);
+    document.getElementById('RW1').innerHTML = ("Nível: " + resultado[9] + "%");
 }
 
 
@@ -63,8 +65,8 @@ function myFunction(valor) {
 
 /*_________________________ Construtor ___________________________________________*/
 function construir() {
-    
-    
+
+
 
     var mydata = JSON.parse(conteudo);
     var contador = Object.keys(mydata).length;
@@ -73,6 +75,95 @@ function construir() {
         var oir = document.getElementsByClassName("item-descricao")[i].innerHTML = mydata[i].descricao;
     }
 }
+
+
+
+/* Gouge */
+// var opts = {
+//     // options here
+// };
+// var target = document.getElementById('demo'); 
+// var gauge = new Gauge(target).setOptions(opts);
+
+// document.getElementById("preview-textfield").className = "preview-textfield";
+// gauge.setTextField(document.getElementById("preview-textfield"));
+
+// gauge.maxValue = 3000;
+// gauge.setMinValue(0); 
+// gauge.set(1250);    
+// gauge.animationSpeed = 32
+
+// var opts = {
+
+//     // color configs
+//     colorStart: "#6fadcf",
+//     colorStop: void 0,
+//     gradientType: 0,
+//     strokeColor: "#e0e0e0",
+//     generateGradient: true,
+//     percentColors: [[0.0, "#a9d70b" ], [0.50, "#f9c802"], [1.0, "#ff0000"]],
+
+//     // customize pointer
+//     pointer: {
+//       length: 0.8,
+//       strokeWidth: 0.035,
+//       iconScale: 1.0
+//     },
+
+//     // static labels
+//     staticLabels: {
+//       font: "10px sans-serif",
+//       labels: [200, 500, 2100, 2800],
+//       fractionDigits: 0
+//     },
+
+//     // static zones
+//     staticZones: [
+//       {strokeStyle: "#F03E3E", min: 0, max: 200},
+//       {strokeStyle: "#FFDD00", min: 200, max: 500},
+//       {strokeStyle: "#30B32D", min: 500, max: 2100},
+//       {strokeStyle: "#FFDD00", min: 2100, max: 2800},
+//       {strokeStyle: "#F03E3E", min: 2800, max: 3000}
+//     ],
+
+//     // render ticks
+//     renderTicks: {
+//       divisions: 5,
+//       divWidth: 1.1,
+//       divLength: 0.7,
+//       divColor: #333333,
+//       subDivisions: 3,
+//       subLength: 0.5,
+//       subWidth: 0.6,
+//       subColor: #666666
+//     }
+
+//     // the span of the gauge arc
+//     angle: 0.15,
+
+//     // line thickness
+//     lineWidth: 0.44,
+
+//     // radius scale
+//     radiusScale: 1.0,
+
+//     // font size
+//     fontSize: 40,
+
+//     // if false, max value increases automatically if value > maxValue
+//     limitMax: false,
+
+//     // if true, the min value of the gauge will be fixed
+//     limitMin: false,
+
+//     // High resolution support
+//     highDpiSupport: true
+
+// };
+
+
+
+
 
 
 
@@ -120,4 +211,3 @@ function construir() {
 // });
 
 /*_______________________________Fim test reciver ____________________________________*/
-

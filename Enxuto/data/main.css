@@ -1,220 +1,402 @@
-*{
+* {
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
-    box-sizing: border-box; 
+    box-sizing: border-box;
     margin: 0;
     padding: 0;
 }
 
-.divisao-cabecalho{
-  background-color: transparent; /*coloca background do título transparente*/
+.divisao-cabecalho {
+    background-color: transparent;
+    /*coloca background do título transparente*/
 }
 
-.corpo{
+.corpo {
     background-color: rgb(43, 43, 43);
     border-radius: 2vh;
-
     padding-top: 3%;
     padding-bottom: 3%;
     padding-left: 3%;
-    padding-right:3%;
-
+    padding-right: 3%;
     margin: 5%;
     margin-top: 1%;
-    margin: 3%; 
-    
+    margin: 3%;
 }
 
-.titulo{
-  font-size: 6vh; /*tamanho da fonte do título da página*/
-  text-align: center; /*alinhamento do título da pagina*/
-  padding-top: 5vh; /*espaço do título até parte superior da pagina*/
+.titulo {
+    font-size: 6vh;
+    /*tamanho da fonte do título da página*/
+    text-align: center;
+    /*alinhamento do título da pagina*/
+    padding-top: 5vh;
+    /*espaço do título até parte superior da pagina*/
 }
 
-body{
+body {
     padding: 0%;
     background-color: rgb(30, 30, 30);
     color: white;
 }
 
 ul {
-  background: #ffc400;
-  display: flex;
-  list-style: none;
-  width: 100%;
-  font-size: 18px;
-  height: 5vh;
-  align-items: center;
-  justify-content: space-evenly;
-
+    background: #ffc400;
+    display: flex;
+    list-style: none;
+    width: 100%;
+    font-size: 18px;
+    height: 5vh;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
-a{
-  color: black;
-  text-decoration: none;
-  font-family: Arial, Helvetica, sans-serif;
-  font-size: 1.8vh;
-  font-weight: bold;
+a {
+    color: black;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.8vh;
+    font-weight: bold;
 }
 
 header {
-  background: #000000;
-  height: 20vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: white;
-  margin: 0;
+    background: #000000;
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin: 0;
 }
 
 nav {
-  position: sticky;
-  top: 0;
+    position: sticky;
+    top: 0;
 }
 
 html {
-  scroll-behavior: smooth;
+    scroll-behavior: smooth;
 }
 
-#logo-img{
-  background-image: url("https://images.adsttc.com/media/images/5d70/0bd9/284d/d102/9500/05ef/medium_jpg/P_E_659-254-E_copy-MEDIA.jpg");
-  position: relative; 
-  background-size: 100%;
-  background-position: center;
-  width: 100%;
-  height: 100%;
-  /* filter: blur(3px); */
-  background-color: black;
+#logo-img {
+    background-image: url("https://images.adsttc.com/media/images/5d70/0bd9/284d/d102/9500/05ef/medium_jpg/P_E_659-254-E_copy-MEDIA.jpg");
+    position: relative;
+    background-size: 100%;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    /* filter: blur(3px); */
+    background-color: black;
 }
 
-.inf{
-  background-color: rgba(0, 0, 0, 65%);
-  width: 100%;
-  height: 100%;
+#logo-img-tanque {
+    background-image: url("fundoTanque.jpg");
+    position: relative;
+    background-size: 100%;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    /* filter: blur(3px); */
+    background-color: black;
 }
 
-.infor{
-  background-color: transparent;
-  position: absolute;
-  bottom: 10px;
-
-
+.inf {
+    background-color: rgba(0, 0, 0, 65%);
+    width: 100%;
+    height: 100%;
 }
 
-.infor-resume{
-  color: rgba(255, 255, 255, 1);
-  opacity: 100%;
-  padding-bottom: 1vh;
+.infor {
+    background-color: transparent;
+    position: absolute;
+    bottom: 10px;
 }
 
-.tit-val{
-  display: inline-block;
-  background-color: transparent;
+.infor-resume {
+    color: rgba(255, 255, 255, 1);
+    opacity: 100%;
+    padding-bottom: 1vh;
 }
 
-.tit{
-  font-size: 1.5vh;
-  font-family: Arial, Helvetica, sans-serif;
-  text-shadow: 0.1em 0.1em 0.2em black;
-  padding-bottom: 1.2vh;
-  font-weight: 10;
-  
-}
-.val{
-  font-size: 3vh;
-  font-family: Arial, Helvetica, sans-serif;
-  text-shadow: 0.1em 0.1em 0.2em black;
-  font-weight: 10;
+.tit-val {
+    display: inline-block;
+    background-color: transparent;
 }
 
-#infor-temperatura{
-  font-size: 3.7vh;
-  font-weight: 500;
+.tit {
+    font-size: 1.5vh;
+    font-family: Arial, Helvetica, sans-serif;
+    text-shadow: 0.1em 0.1em 0.2em black;
+    padding-bottom: 1.2vh;
+    font-weight: 10;
 }
+
+.val {
+    font-size: 3vh;
+    font-family: Arial, Helvetica, sans-serif;
+    text-shadow: 0.1em 0.1em 0.2em black;
+    font-weight: 10;
+}
+
+#infor-temperatura {
+    font-size: 3.7vh;
+    font-weight: 500;
+}
+
 
 /*________________________________________________ Switch ___________________________________________________*/
+
 .onoffswitch {
-  position: relative; width: 73px;
-  -webkit-user-select:none; -moz-user-select:none; -ms-user-select: none;
+    position: relative;
+    width: 73px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
 }
+
 .onoffswitch-checkbox {
-  display: none;
+    display: none;
 }
+
 .onoffswitch-label {
-  display: block; overflow: hidden; cursor: pointer;
-  border: 2px solid #000000; border-radius: 15px;
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid #000000;
+    border-radius: 15px;
 }
+
 .onoffswitch-inner {
-  display: block; width: 200%; margin-left: -100%;
-  transition: margin 0.3s ease-in 0s;
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
 }
-.onoffswitch-inner:before, .onoffswitch-inner:after {
-  display: block; float: left; width: 50%; height: 30px; padding: 0; line-height: 30px;
-  font-size: 14px; color: white; font-family: Trebuchet, Arial, sans-serif; font-weight: bold;
-  box-sizing: border-box;
-}
-.onoffswitch-inner:before {
-  content: "ON";
-  padding-left: 10px;
-  background-color: #FFC400; color: #000000;
-}
+
+.onoffswitch-inner:before,
 .onoffswitch-inner:after {
-  content: "OFF";
-  padding-right: 10px;
-  background-color: #EEEEEE; color: #000000;
-  text-align: right;
+    display: block;
+    float: left;
+    width: 50%;
+    height: 30px;
+    padding: 0;
+    line-height: 30px;
+    font-size: 14px;
+    color: white;
+    font-family: Trebuchet, Arial, sans-serif;
+    font-weight: bold;
+    box-sizing: border-box;
 }
+
+.onoffswitch-inner:before {
+    content: "ON";
+    padding-left: 10px;
+    background-color: #FFC400;
+    color: #000000;
+}
+
+.onoffswitch-inner:after {
+    content: "OFF";
+    padding-right: 10px;
+    background-color: #EEEEEE;
+    color: #000000;
+    text-align: right;
+}
+
 .onoffswitch-switch {
-  display: block; width: 20px; margin: 5px;
-  background: #FFFFFF;
-  position: absolute; top: 0; bottom: 0;
-  right: 39px;
-  border: 2px solid #000000; border-radius: 15px;
-  transition: all 0.3s ease-in 0s; 
+    display: block;
+    width: 20px;
+    margin: 5px;
+    background: #FFFFFF;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 39px;
+    border: 2px solid #000000;
+    border-radius: 15px;
+    transition: all 0.3s ease-in 0s;
 }
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
-  margin-left: 0;
+
+.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
 }
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-  right: 0px; 
+
+.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-switch {
+    right: 0px;
 }
 
 
 /*__________________________________________________ Fim switch  _______________________________________________*/
 
-.icone{
-  width: 6vh;
-  height: 6vh;
-  background-color: transparent;
+.icone {
+    width: 6vh;
+    height: 6vh;
+    background-color: transparent;
+}
+
+.itens {
+    margin-bottom: 1vh;
+}
+
+.itens-ratio {
+    background-color: rgb(55, 55, 55);
+    height: 12vh;
+    border-radius: 2vh;
+}
+
+.item-icon {
+    width: 25%;
+    text-align: center;
+}
+
+.item-descricao {
+    width: 50%;
+    text-align: left;
+    font-size: 2.5vh;
+}
+
+.item-mudador {
+    width: 25%;
+}
+
+.IDPAGE {
+    color: transparent;
+    font-size: 0vh;
 }
 
 
-.itens{
-  margin-bottom:  1vh;
+/*____________________________________________ GOUGE __________________________________________*/
+$baseFontSize: 16;
+$green: #1abc9c;
+$yellow: #f1c40f;
+$red: #c0392b;
+$blue: #3498db;
+$grey: #f2f2f2;
+
+@function rem($val) {
+  @return #{$val / $baseFontSize}rem;
 }
 
-.itens-ratio{
-  background-color: rgb(55, 55, 55);
-  height: 12vh;
-  border-radius: 2vh;
+.body {
+  font-size: #{$baseFontSize};
 }
 
-.item-icon{
-  width: 25%;
+.header {
+  padding: 1rem;
+  margin: 0 0 2rem 0;
+  
+  background: $grey;  
+}
+
+h1 {
+  font-size: 2rem;
+  font-family: Arial, sans-serif;
   text-align: center;
+  text-transform: uppercase;
 }
 
-.item-descricao{
-  width: 50%;
-  text-align: left;
-  font-size: 2.5vh;
+.content {
+  display: flex;
 }
 
-.item-mudador{
-  width: 25%;
+// Gauge
+.mask {
+  position: relative;
+  overflow: hidden;
+
+  display: block;
+  width: rem(200);
+  height: rem(100);
+  margin: rem(20);
+}
+.semi-circle {
+  position: relative;
+
+  display: block;
+  width: rem(200);
+  height: rem(100);
+
+  background: linear-gradient(to right, $red 0%, $yellow 50%, $green 100%);
+
+  border-radius: 50% 50% 50% 50% / 100% 100% 0% 0% ;
+
+  &::before {
+    content: "";
+
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    z-index: 2;
+
+    display: block;
+    width: rem(140);
+    height: rem(70);
+    margin-left: rem(-70);
+
+    background: #fff;
+
+    border-radius: 50% 50% 50% 50% / 100% 100% 0% 0% ;
+  }      
 }
 
-.IDPAGE{
-  color: transparent;
-  font-size: 0vh;
+.semi-circle--mask {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: rem(200);
+  height: rem(200);
+
+  background: transparent;
+
+  transform: rotate(120deg) translate3d(0,0,0);
+  transform-origin: center center;
+  backface-visibility: hidden;
+  transition: all .3s ease-in-out;
+
+  &::before {
+    content: "";
+
+    position: absolute;
+    top: 0;
+    left: 0%;
+    z-index: 2;
+
+    display: block;
+    width: rem(202);
+    height: rem(102);
+    margin: -1px 0 0 -1px;
+
+    background: #f2f2f2;
+
+    border-radius: 50% 50% 50% 50% / 100% 100% 0% 0% ;
+  }      
 }
+
+.gauge--1 {
+  .semi-circle {
+    background: $green;
+  }
+}
+
+.gauge--2 {
+  .semi-circle {
+    background: $red;
+  }
+  
+  .semi-circle--mask {
+    transform: rotate(20deg) translate3d(0,0,0);
+  }
+}
+
+.btn--twitter {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  
+  padding: .5rem;
+  
+  background: $blue;
+  
+  color: #fff;
+}
+
+/*____________________________________ Fim GOUGE _____________________________________________*/

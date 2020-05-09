@@ -3,16 +3,16 @@ var rainbowEnable = false;
 var connection = new WebSocket('ws://' + location.hostname + ':81/', ['arduino']);
 var mensagensRecebidas;
 var resultado = [];
-
+var temperatura = 0;
 
 /*_______________________ Funções Padrões Web Socket _____________________________*/
-connection.onopen = function() {
+connection.onopen = function () {
     connection.send('Connect ' + new Date());
 };
-connection.onerror = function(error) {
+connection.onerror = function (error) {
     console.log('WebSocket Error ', error);
 };
-connection.onmessage = function(e) {
+connection.onmessage = function (e) {
 
     mensagensRecebidas = e.data;
     console.log("recebido " + mensagensRecebidas);
@@ -25,7 +25,7 @@ connection.onmessage = function(e) {
 };
 
 
-connection.onclose = function() {
+connection.onclose = function () {
     console.log('WebSocket connection closed');
 };
 
@@ -36,13 +36,26 @@ connection.onclose = function() {
 function updateCounterUI(counter) {
     // console.log(counter);
     document.getElementById('infor-temperatura').innerHTML = (resultado[1] + resultado[2]);
-    // console.log(resultado[1]);
     document.getElementById('infor-umidade').innerHTML = (resultado[4] + resultado[5]);
     document.getElementById('infor-luminosidade').innerHTML = (resultado[7]);
-    console.log(resultado[10]);
     document.getElementById('RW1').innerHTML = ("Nível: " + resultado[9] + "%");
+    temperatura = resultado[1];
+
+    // Alterando a cor de acordo com a termperatura
+    if (temperatura < 24) {
+        document.getElementById("RW1").style.color = #ffffff;
+        console.log("abaixo");
+    }
+    if (temperatura >= 24) {
+        document.getElementById("RW1").style.color = "Blue";
+        console.log("alto");
+    }
 }
 
+
+
+var s = "<div style='width:200px; heigth:500px; background-color: orange;border-bottom: solid; border-left: solid; transform: rotate(180deg);'><div id='tk' style='width:200px; heigth:300px; background-color:blue; margin-bottom:0px;'></div></div><script> document.getElementById('tk').style.heigth=' " + value + "px ';</script>";
+return s;
 
 /*________________________ Função JS ____________________________________________*/
 function myFunction(valor) {
@@ -76,7 +89,25 @@ function construir() {
     }
 }
 
+// /*____________________________Change COlor ______________________________________ */
 
+// function changeBackground() {
+
+//     var names = ["AliceBlue", "AntiqueWhite", "Aqua", "Aquamarine", "Azure", "Beige", "Bisque", "Black", "BlanchedAlmond", "Blue", "BlueViolet", "Brown", "BurlyWood", "CadetBlue", "Chartreuse", "Chocolate", "Coral", "CornflowerBlue", "Cornsilk", "Crimson", "Cyan", "DarkBlue", "DarkCyan", "DarkGoldenRod", "DarkGray", "DarkGrey", "DarkGreen", "DarkKhaki", "DarkMagenta", "DarkOliveGreen", "Darkorange", "DarkOrchid", "DarkRed", "DarkSalmon", "DarkSeaGreen", "DarkSlateBlue", "DarkSlateGray", "DarkSlateGrey", "DarkTurquoise", "DarkViolet", "DeepPink", "DeepSkyBlue", "DimGray", "DimGrey", "DodgerBlue", "FireBrick", "FloralWhite", "ForestGreen", "Fuchsia", "Gainsboro", "GhostWhite", "Gold", "GoldenRod", "Gray", "Grey", "Green", "GreenYellow", "HoneyDew", "HotPink", "IndianRed", "Indigo", "Ivory", "Khaki", "Lavender", "LavenderBlush", "LawnGreen", "LemonChiffon", "LightBlue", "LightCoral", "LightCyan", "LightGoldenRodYellow", "LightGray", "LightGrey", "LightGreen", "LightPink", "LightSalmon", "LightSeaGreen", "LightSkyBlue", "LightSlateGray", "LightSlateGrey", "LightSteelBlue", "LightYellow", "Lime", "LimeGreen", "Linen", "Magenta", "Maroon", "MediumAquaMarine", "MediumBlue", "MediumOrchid", "MediumPurple", "MediumSeaGreen", "MediumSlateBlue", "MediumSpringGreen", "MediumTurquoise", "MediumVioletRed", "MidnightBlue", "MintCream", "MistyRose", "Moccasin", "NavajoWhite", "Navy", "OldLace", "Olive", "OliveDrab", "Orange", "OrangeRed", "Orchid", "PaleGoldenRod", "PaleGreen", "PaleTurquoise", "PaleVioletRed", "PapayaWhip", "PeachPuff", "Peru", "Pink", "Plum", "PowderBlue", "Purple", "Red", "RosyBrown", "RoyalBlue", "SaddleBrown", "Salmon", "SandyBrown", "SeaGreen", "SeaShell", "Sienna", "Silver", "SkyBlue", "SlateBlue", "SlateGray", "SlateGrey", "Snow", "SpringGreen", "SteelBlue", "Tan", "Teal", "Thistle", "Tomato", "Turquoise", "Violet", "Wheat", "White", "WhiteSmoke", "Yellow", "YellowGreen"],
+//         color = document.getElementById("color").value.trim(),
+//         rxValidHex = /^#(?:[0-9a-f]{3}){1,2}$/i,
+//         formattedName = color.charAt(0).toUpperCase() + color.slice(1).toLowerCase();
+
+//     if (names.indexOf(formattedName) !== -1 || rxValidHex.test(color)) {
+//         document.getElementById("coltext").style.color = color;
+
+//     } else {
+//         alert("Invalid CSS Color");
+//     }
+// }
+
+document.getElementById("submitColor").addEventListener("click", changeBackground, false);
+/*_____________________________Fim change color __________________________________ */
 
 /* Gouge */
 // var opts = {

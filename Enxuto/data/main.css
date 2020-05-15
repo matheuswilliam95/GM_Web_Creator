@@ -141,7 +141,6 @@ html {
     font-weight: 500;
 }
 
-
 /*________________________________________________ Switch ___________________________________________________*/
 
 .onoffswitch {
@@ -171,8 +170,7 @@ html {
     transition: margin 0.3s ease-in 0s;
 }
 
-.onoffswitch-inner:before,
-.onoffswitch-inner:after {
+.onoffswitch-inner:before, .onoffswitch-inner:after {
     display: block;
     float: left;
     width: 50%;
@@ -223,7 +221,6 @@ html {
     right: 0px;
 }
 
-
 /*__________________________________________________ Fim switch  _______________________________________________*/
 
 .icone {
@@ -262,9 +259,104 @@ html {
     font-size: 0vh;
 }
 
+/*Menu Tanques */
 
+.tanques {
+    background-color: rgb(55, 55, 55);
+    height: 12vh;
+    border-radius: 2vh;
+}
+
+.icone-tanques {
+    position: relative;
+    top: 1vh;
+    left: 1vh;
+    width: 20%;
+    height: 10vh;
+}
+
+.info-tanques {
+    width: 20%;
+}
+
+.tanques {
+
+
+}
+
+.rectangle {
+    position: relative;
+    width: 70%;
+    height: 80%;
+    /* background: rgb(20, 20, 20); */
+    border: 0.5vh solid #303030;
+    border-top: 0.5vh solid transparent;
+    border-radius: 2vh;
+    border-top-left-radius: 0.5vh;
+    border-top-right-radius: 0.5vh;
+    background: url(water.svg);
+    background-repeat: repeat-x;
+    background-size: 100%;
+    background-position-y: 0px;
+    animation: animate linear 2s infinite;
+    box-shadow: 0 0 0 0.5vh #fff;
+}
+
+@keyframes animate {
+    0% {
+        background-position: 8.1vh 0;
+    }
+}
+
+.volume-tanque {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    top: 1.5vh;
+    text-align: center;
+    font-size: 3vh;
+    font-family: Trebuchet, Arial, sans-serif;
+    text-shadow: 0 0 5vh #000;
+    font-weight: bolder;
+}
+
+.info-tanque-itens{
+    display: inline-block;
+    height: 100%;
+    font-size: 2vh;
+    font-family: Trebuchet, Arial, sans-serif;
+    background-color: transparent;
+    text-align: right;
+}
+
+.info-tanque-dados{
+    display: inline-block;
+    font-size: 2vh;
+    font-family: Trebuchet, Arial, sans-serif;
+    background-color: transparent;
+    text-align: left;
+}
+
+.dados-tanques{
+    position: relative;
+    width: 50%;
+    display: inline-block;
+    background-color: transparent;
+    text-align: left;
+    padding-left: 1vh;
+    font-family: Trebuchet, Arial, sans-serif;
+}
+
+.dados-tanque-individual{
+    text-align: left;
+}
+
+.itens-descricao-tanques{
+
+}
 /*____________________________________________ GOUGE __________________________________________*/
-$baseFontSize: 16;
+
+/* $baseFontSize: 16;
 $green: #1abc9c;
 $yellow: #f1c40f;
 $red: #c0392b;
@@ -403,6 +495,6 @@ h1 {
   background: $blue;
   
   color: #fff;
-}
+} */
 
-/*____________________________________ Fim GOUGE _____________________________________________*/
+/* ____________________________________ Fim GOUGE _____________________________________________ */

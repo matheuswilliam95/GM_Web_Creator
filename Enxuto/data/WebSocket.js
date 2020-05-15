@@ -3,16 +3,16 @@ var rainbowEnable = false;
 var connection = new WebSocket('ws://' + location.hostname + ':81/', ['arduino']);
 var mensagensRecebidas;
 var resultado = [];
-var temperatura = 0;
+// var temperatura = 0;
 
 /*_______________________ Funções Padrões Web Socket _____________________________*/
-connection.onopen = function () {
+connection.onopen = function() {
     connection.send('Connect ' + new Date());
 };
-connection.onerror = function (error) {
+connection.onerror = function(error) {
     console.log('WebSocket Error ', error);
 };
-connection.onmessage = function (e) {
+connection.onmessage = function(e) {
 
     mensagensRecebidas = e.data;
     console.log("recebido " + mensagensRecebidas);
@@ -25,7 +25,7 @@ connection.onmessage = function (e) {
 };
 
 
-connection.onclose = function () {
+connection.onclose = function() {
     console.log('WebSocket connection closed');
 };
 
@@ -39,23 +39,24 @@ function updateCounterUI(counter) {
     document.getElementById('infor-umidade').innerHTML = (resultado[4] + resultado[5]);
     document.getElementById('infor-luminosidade').innerHTML = (resultado[7]);
     document.getElementById('RW1').innerHTML = ("Nível: " + resultado[9] + "%");
-    temperatura = resultado[1];
+    var temperatura = resultado[1];
+    console.log(temperatura);
 
     // Alterando a cor de acordo com a termperatura
-    if (temperatura < 24) {
-        document.getElementById("RW1").style.color = #ffffff;
+    if (temperatura < 28) {
+        document.getElementById('RW1').style.color = "#11FF11";
         console.log("abaixo");
     }
-    if (temperatura >= 24) {
-        document.getElementById("RW1").style.color = "Blue";
+    else if (temperatura >= 28) {
+        document.getElementById('RW1').style.color = "#31FF4E";
         console.log("alto");
     }
 }
 
 
 
-var s = "<div style='width:200px; heigth:500px; background-color: orange;border-bottom: solid; border-left: solid; transform: rotate(180deg);'><div id='tk' style='width:200px; heigth:300px; background-color:blue; margin-bottom:0px;'></div></div><script> document.getElementById('tk').style.heigth=' " + value + "px ';</script>";
-return s;
+// var s = "<div style='width:200px; heigth:500px; background-color: orange;border-bottom: solid; border-left: solid; transform: rotate(180deg);'><div id='tk' style='width:200px; heigth:300px; background-color:blue; margin-bottom:0px;'></div></div><script> document.getElementById('tk').style.heigth=' " + value + "px ';</script>";
+// return s;
 
 /*________________________ Função JS ____________________________________________*/
 function myFunction(valor) {

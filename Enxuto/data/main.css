@@ -267,46 +267,66 @@ html {
     border-radius: 2vh;
 }
 
+/*---------------------------- sub divisoes ------------*/
+
 .icone-tanques {
+    padding-left: 1vh;
     position: relative;
     top: 1vh;
     left: 1vh;
-    width: 20%;
+    width: 20vh;
     height: 10vh;
+    /* background-color: saddlebrown; */
 }
 
 .info-tanques {
-    width: 20%;
+    width: 20vh;
+    /* background-color: salmon; */
 }
 
-.tanques {
-
-
+.dados-tanques {
+    position: relative;
+    width: 30vh;
+    display: inline-block;
+    background-color: transparent;
+    text-align: left;
+    padding-left: 1vh;
+    font-family: Trebuchet, Arial, sans-serif;
+    /* background-color: seagreen; */
 }
+
+/*------------------------------- fim sub divisoes ---------*/
+
+.tanques {}
 
 .rectangle {
     position: relative;
-    width: 70%;
-    height: 80%;
+    background-attachment: fixed;
+    width: 8vh;
+    height: 7vh;
     /* background: rgb(20, 20, 20); */
     border: 0.5vh solid #303030;
     border-top: 0.5vh solid transparent;
     border-radius: 2vh;
     border-top-left-radius: 0.5vh;
     border-top-right-radius: 0.5vh;
-    background: url(water.svg);
+    background: url("water1.png");
     background-repeat: repeat-x;
-    background-size: 100%;
-    background-position-y: 0px;
+    background-position-y: 1vh;
+    background-size: contain;
     animation: animate linear 2s infinite;
     box-shadow: 0 0 0 0.5vh #fff;
 }
 
+#tanque-01-icone {
+
+}
+/* 
 @keyframes animate {
     0% {
-        background-position: 8.1vh 0;
+        background-position: 8.1vh;
     }
-}
+} */
 
 .volume-tanque {
     position: relative;
@@ -316,11 +336,12 @@ html {
     text-align: center;
     font-size: 3vh;
     font-family: Trebuchet, Arial, sans-serif;
-    text-shadow: 0 0 5vh #000;
     font-weight: bolder;
+    text-shadow: 0.1vh 0.2vh 0.3vh #ffffff;
+    color: black;
 }
 
-.info-tanque-itens{
+.info-tanque-itens {
     display: inline-block;
     height: 100%;
     font-size: 2vh;
@@ -329,7 +350,7 @@ html {
     text-align: right;
 }
 
-.info-tanque-dados{
+.info-tanque-dados {
     display: inline-block;
     font-size: 2vh;
     font-family: Trebuchet, Arial, sans-serif;
@@ -337,23 +358,14 @@ html {
     text-align: left;
 }
 
-.dados-tanques{
-    position: relative;
-    width: 50%;
-    display: inline-block;
-    background-color: transparent;
-    text-align: left;
-    padding-left: 1vh;
-    font-family: Trebuchet, Arial, sans-serif;
-}
-
-.dados-tanque-individual{
+.dados-tanque-individual {
     text-align: left;
 }
 
-.itens-descricao-tanques{
+.itens-descricao-tanques {
 
 }
+
 /*____________________________________________ GOUGE __________________________________________*/
 
 /* $baseFontSize: 16;

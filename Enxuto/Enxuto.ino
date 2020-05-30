@@ -1,10 +1,13 @@
 #include <ESP8266WiFi.h>
 #include <ESP8266WiFiMulti.h>
-#include <ArduinoOTA.h>
+#include <ArduinoOTA.h> //Biblioteca Upload codigo por wifi
 #include <ESP8266WebServer.h>
 #include <FS.h>
 #include <WebSocketsServer.h>
-#include "DHTesp.h"
+#include "DHTesp.h" //Biblioteca Sensor temperatura e umidade DHT11
+#include <TimeLib.h>
+#include <WiFiUdp.h>
+#include <NTPClient.h>
 
 #define DHTpin 14 //D5 of NodeMCU is GPIO14
 #define sLuz 16   // Sensor de luminosidade
@@ -47,11 +50,26 @@ int temperaturaLocal = 0;
 int leituraCombustivel = 0;
 int nivelCombustivel = 0;
 
-String luminosidadeLocal;
-/*__________________________________________________________SETUP__________________________________________________________*/
+// Temperatura tanque 01
+int TempTanque01 = 0;
+int TempMaxTanque01 = 0;
+String TimetTempMaxTanque01 = "";
+int TempMinTanque01 = 0;
+String TimetTempMinTanque01 = "0";
 
+// Luminosidade
+String luminosidadeLocal;
+
+/*______________________________ Declarando Relogio _____________________*/
+WiFiUDP ntpUDP;
+NTPClient timeClient(ntpUDP, "b.st1.ntp.br", -3 * 3600, 60000);
+String hora = "";
+String horaNova = "";
+
+/*__________________________________________________________SETUP__________________________________________________________*/
 void setup()
 {
+
   pinMode(sLuz, INPUT);
 
   pinMode(LED_RED, OUTPUT); // the pins with LEDs connected are outputs
@@ -67,6 +85,9 @@ void setup()
   Serial.println("Serial Iniciado");
 
   dht.setup(DHTpin, DHTesp::DHT11);
+
+  // Relogio
+  timeClient.begin();
 
   delay(2000);
   startWiFi();      // Start a Wi-Fi access point, and try to connect to some given access points. Then wait for either an AP or STA connection
@@ -89,10 +110,26 @@ bool rainbow = false; // The rainbow effect is turned off on startup
 unsigned long prevMillis = millis();
 int hue = 0;
 
+time_t prevDisplay = 0; // when the digital clock was displayed
+
 void loop()
 {
+  // ------------------------------------ Atualizando Relógio -------------------------------
+  if ((millis() - lastTime)>10000)
+  {
+    //Relogio
+    timeClient.update();
+    hora = timeClient.getFormattedTime();
+    Serial.println(hora);
+  }
+  
+
+  //------------------------------------- Loop Servidor ---------------------------------
   if ((millis() - lastTime) > 1000)
   {
+
+
+
     // Lendo nível combustível
     leituraCombustivel = analogRead(sensorCombustivel);
     nivelCombustivel = map(leituraCombustivel, 0, 1023, 0, 100);
@@ -116,25 +153,47 @@ void loop()
     temperaturaLocal = temperature;
     umidadeLocal = humidity;
 
-    //Serial.print(dht.getStatusString());
+    // Atualização temperaturaS Tanque 01
+    TempTanque01 = temperaturaLocal;
+    horaNova = hora;
+    if ((TempMaxTanque01 == 0) && (TempMinTanque01 == 0))
+    {
+      TempMinTanque01 = temperaturaLocal;
+      TempMaxTanque01 = temperaturaLocal;
+      horaNova.remove(3, 3);
+      TimetTempMaxTanque01 = horaNova;
+      TimetTempMinTanque01 = horaNova;
+    }
+    if (TempTanque01 > TempMaxTanque01)
+    {
+      TempMaxTanque01 = TempTanque01;
+      horaNova.remove(3, 3);
+      TimetTempMaxTanque01 = horaNova;
+    }
+    else if (TempTanque01 < TempMinTanque01)
+    {
+      TempMinTanque01 = TempTanque01;
+      horaNova.remove(3, 3);
+      TimetTempMinTanque01 = horaNova;
+    }
 
-    //Serial.println(humidity);
-    //Serial.println(temperature);
-    Serial.print(luminosidadeLocal);
-
+    // Envio da mensagem com dados para o servidor
     contador++;
-    String message = (String("T") +                              // 01
-                      String("KK") + String(temperaturaLocal) +  // 02
-                      String("KK") + String("°C") +              // 03
-                      String("KK") + String("U") +               // 04
-                      String("KK") + String(umidadeLocal) +      // 05
-                      String("KK") + String("%") +               // 06
-                      String("KK") + String("L") +               // 07
-                      String("KK") + String(luminosidadeLocal) + // 08
-                      String("KK") + String(" lm") +             // 09
-                      String("KK") + String(nivelCombustivel)    //10
-    );
-
+    String message = (String("T") +                                 // 00
+                      String("KK") + String(temperaturaLocal) +     // 01
+                      String("KK") + String("°C") +                 // 02
+                      String("KK") + String("U") +                  // 03
+                      String("KK") + String(umidadeLocal) +         // 04
+                      String("KK") + String("%") +                  // 05
+                      String("KK") + String("L") +                  // 06
+                      String("KK") + String(luminosidadeLocal) +    // 07
+                      String("KK") + String(" lm") +                // 08
+                      String("KK") + String(nivelCombustivel) +     // 09
+                      String("KK") + String(TempMaxTanque01) +      // 10
+                      String("KK") + String(TimetTempMaxTanque01) + // 11
+                      String("KK") + String(TempMinTanque01) +      // 12
+                      String("KK") + String(TimetTempMinTanque01) + // 13
+                      String("KK") + String(hora));                 // 14
     webSocket.broadcastTXT(message);
     lastTime = millis();
   }
@@ -142,17 +201,6 @@ void loop()
   webSocket.loop();      // constantly check for websocket events
   server.handleClient(); // run the server
   ArduinoOTA.handle();   // listen for OTA events
-
-  if (rainbow)
-  { // if the rainbow effect is turned on
-    if (millis() > prevMillis + 32)
-    {
-      if (++hue == 360) // Cycle through the color wheel (increment by one degree every 32 ms)
-        hue = 0;
-      /*      setHue(hue);             */ // Set the RGB LED to the right color
-      prevMillis = millis();
-    }
-  }
 }
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

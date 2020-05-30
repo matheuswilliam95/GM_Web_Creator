@@ -5,7 +5,9 @@
             "includePath": [
                 "C:\\Users\\mathe\\AppData\\Local\\Arduino15\\packages\\esp8266\\tools\\**",
                 "C:\\Users\\mathe\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.6.3\\**",
-                "${workspaceFolder}/Enxuto"
+                "${workspaceFolder}/Enxuto",
+                "C:\\Users\\Matheus\\AppData\\Local\\Arduino15\\packages\\esp8266\\hardware\\esp8266\\2.6.3\\**",
+                "C:\\Users\\Matheus\\AppData\\Local\\Arduino15\\packages\\esp8266\\tools\\**"
             ],
             "forcedInclude": [],
             "intelliSenseMode": "msvc-x64",

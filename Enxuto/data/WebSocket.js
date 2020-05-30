@@ -6,13 +6,13 @@ var resultado = [];
 // var temperatura = 0;
 
 /*_______________________ Funções Padrões Web Socket _____________________________*/
-connection.onopen = function () {
+connection.onopen = function() {
     connection.send('Connect ' + new Date());
 };
-connection.onerror = function (error) {
+connection.onerror = function(error) {
     console.log('WebSocket Error ', error);
 };
-connection.onmessage = function (e) {
+connection.onmessage = function(e) {
 
     mensagensRecebidas = e.data;
     console.log("recebido " + mensagensRecebidas);
@@ -25,7 +25,7 @@ connection.onmessage = function (e) {
 };
 
 
-connection.onclose = function () {
+connection.onclose = function() {
     console.log('WebSocket connection closed');
 };
 
@@ -41,34 +41,34 @@ function updateCounterUI(counter) {
     document.getElementById('infor-umidade').innerHTML = (resultado[4] + resultado[5]);
     document.getElementById('infor-luminosidade').innerHTML = (resultado[7]);
     var nivelTanque01 = (6 - 6 * (resultado[9]) / 100) + "vh";
-    console.log(nivelTanque01);
     document.getElementById('tanque-01-icone').style.backgroundPositionY = nivelTanque01;
 
+    var temperatura = resultado[1]; // Temperatura ambiente
 
 
-    var temperatura = resultado[1];
-    console.log(temperatura);
+    //// Controle temperatura tanque 01 ----------------------------------------------------------------------------
+    var TempMaxTanque01 = (resultado[10]); //Temperatura máxima tanque 01
+    var TempMinTanque01 = (resultado[12]); //Temperatura mínima tanque 01
 
+    document.getElementById('TempMaxTanque01').innerHTML = (TempMaxTanque01 + " °C");
+    document.getElementById('TempMinTanque01').innerHTML = (TempMinTanque01 + " °C");
     // Alterando a cor de acordo com a termperatura
     if (temperatura < 26) {
         document.getElementById('texto-temperatura-tq-01').innerHTML = tempTQ_01 + "°C";
         document.getElementById('tanque-01-icone').style.backgroundImage = "url('water1.png')";
         document.getElementById('texto-temperatura-tq-01').style.color = "black";
         document.getElementById('texto-temperatura-tq-01').style.textShadow = "0.1vh 0.2vh 0.3vh #ffffff";
-    }
-    else if (temperatura >= 26 & temperatura < 28) {
+    } else if (temperatura >= 26 & temperatura < 28) {
         document.getElementById('texto-temperatura-tq-01').innerHTML = tempTQ_01 + "°C";
         document.getElementById('tanque-01-icone').style.backgroundImage = "url('water2.png')";
         document.getElementById('texto-temperatura-tq-01').style.color = "black";
         document.getElementById('texto-temperatura-tq-01').style.textShadow = "0.1vh 0.2vh 0.3vh #ffffff";
-    }
-    else if (temperatura >= 28 & temperatura < 30) {
+    } else if (temperatura >= 28 & temperatura < 30) {
         document.getElementById('texto-temperatura-tq-01').innerHTML = tempTQ_01 + "°C";
         document.getElementById('tanque-01-icone').style.backgroundImage = "url('water3.png')";
         document.getElementById('texto-temperatura-tq-01').style.color = "white";
         document.getElementById('texto-temperatura-tq-01').style.textShadow = "0.1vh 0.2vh 0.3vh #000000";
-    }
-    else if (temperatura >= 30) {
+    } else if (temperatura >= 30) {
         document.getElementById('texto-temperatura-tq-01').innerHTML = tempTQ_01 + "°C";
         document.getElementById('tanque-01-icone').style.backgroundImage = "url('water4.png')";
         document.getElementById('texto-temperatura-tq-01').style.color = "white";

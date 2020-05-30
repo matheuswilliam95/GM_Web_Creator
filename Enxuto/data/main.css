@@ -141,6 +141,7 @@ html {
     font-weight: 500;
 }
 
+
 /*________________________________________________ Switch ___________________________________________________*/
 
 .onoffswitch {
@@ -170,7 +171,8 @@ html {
     transition: margin 0.3s ease-in 0s;
 }
 
-.onoffswitch-inner:before, .onoffswitch-inner:after {
+.onoffswitch-inner:before,
+.onoffswitch-inner:after {
     display: block;
     float: left;
     width: 50%;
@@ -221,6 +223,7 @@ html {
     right: 0px;
 }
 
+
 /*__________________________________________________ Fim switch  _______________________________________________*/
 
 .icone {
@@ -259,13 +262,6 @@ html {
     font-size: 0vh;
 }
 
-/*Menu Tanques */
-
-.tanques {
-    background-color: rgb(55, 55, 55);
-    height: 12vh;
-    border-radius: 2vh;
-}
 
 /*---------------------------- sub divisoes ------------*/
 
@@ -279,21 +275,6 @@ html {
     /* background-color: saddlebrown; */
 }
 
-.info-tanques {
-    width: 20vh;
-    /* background-color: salmon; */
-}
-
-.dados-tanques {
-    position: relative;
-    width: 30vh;
-    display: inline-block;
-    background-color: transparent;
-    text-align: left;
-    padding-left: 1vh;
-    font-family: Trebuchet, Arial, sans-serif;
-    /* background-color: seagreen; */
-}
 
 /*------------------------------- fim sub divisoes ---------*/
 
@@ -318,9 +299,9 @@ html {
     box-shadow: 0 0 0 0.5vh #fff;
 }
 
-#tanque-01-icone {
+#tanque-01-icone {}
 
-}
+
 /* 
 @keyframes animate {
     0% {
@@ -341,172 +322,71 @@ html {
     color: black;
 }
 
-.info-tanque-itens {
+
+/* -------------- Nivel 00 -- Menu Tanques ------- */
+
+ul.tanques {
+    background-color: rgb(55, 55, 55);
+    height: 17vh;
+    border-radius: 2vh;
+}
+
+
+/*--------------- Nivel 01 -------------------- */
+
+li.info-tanques {
+    width: 5vh;
+}
+
+li.dados-tanques {
+    width: 30vh;
+}
+
+
+/*--------------- Nivel 02 -------------------- */
+
+ul.info-tanque-itens {
     display: inline-block;
-    height: 100%;
-    font-size: 2vh;
+    height: 3vh;
+    font-size: 1.5vh;
     font-family: Trebuchet, Arial, sans-serif;
-    background-color: transparent;
     text-align: right;
-}
-
-.info-tanque-dados {
-    display: inline-block;
-    font-size: 2vh;
-    font-family: Trebuchet, Arial, sans-serif;
     background-color: transparent;
+}
+
+ul.info-tanque-dados {
+    padding-top: 3vh;
+    display: inline-block;
+    height: 3vh;
+    font-size: 1.5vh;
+    font-family: Trebuchet, Arial, sans-serif;
     text-align: left;
-}
-
-.dados-tanque-individual {
-    text-align: left;
-}
-
-.itens-descricao-tanques {
-
-}
-
-/*____________________________________________ GOUGE __________________________________________*/
-
-/* $baseFontSize: 16;
-$green: #1abc9c;
-$yellow: #f1c40f;
-$red: #c0392b;
-$blue: #3498db;
-$grey: #f2f2f2;
-
-@function rem($val) {
-  @return #{$val / $baseFontSize}rem;
-}
-
-.body {
-  font-size: #{$baseFontSize};
-}
-
-.header {
-  padding: 1rem;
-  margin: 0 0 2rem 0;
-  
-  background: $grey;  
-}
-
-h1 {
-  font-size: 2rem;
-  font-family: Arial, sans-serif;
-  text-align: center;
-  text-transform: uppercase;
-}
-
-.content {
-  display: flex;
-}
-
-// Gauge
-.mask {
-  position: relative;
-  overflow: hidden;
-
-  display: block;
-  width: rem(200);
-  height: rem(100);
-  margin: rem(20);
-}
-.semi-circle {
-  position: relative;
-
-  display: block;
-  width: rem(200);
-  height: rem(100);
-
-  background: linear-gradient(to right, $red 0%, $yellow 50%, $green 100%);
-
-  border-radius: 50% 50% 50% 50% / 100% 100% 0% 0% ;
-
-  &::before {
-    content: "";
-
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    z-index: 2;
-
-    display: block;
-    width: rem(140);
-    height: rem(70);
-    margin-left: rem(-70);
-
-    background: #fff;
-
-    border-radius: 50% 50% 50% 50% / 100% 100% 0% 0% ;
-  }      
-}
-
-.semi-circle--mask {
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  width: rem(200);
-  height: rem(200);
-
-  background: transparent;
-
-  transform: rotate(120deg) translate3d(0,0,0);
-  transform-origin: center center;
-  backface-visibility: hidden;
-  transition: all .3s ease-in-out;
-
-  &::before {
-    content: "";
-
-    position: absolute;
-    top: 0;
-    left: 0%;
-    z-index: 2;
-
-    display: block;
-    width: rem(202);
-    height: rem(102);
-    margin: -1px 0 0 -1px;
-
-    background: #f2f2f2;
-
-    border-radius: 50% 50% 50% 50% / 100% 100% 0% 0% ;
-  }      
-}
-
-.gauge--1 {
-  .semi-circle {
-    background: $green;
-  }
-}
-
-.gauge--2 {
-  .semi-circle {
-    background: $red;
-  }
-  
-  .semi-circle--mask {
-    transform: rotate(20deg) translate3d(0,0,0);
-  }
-}
-
-.sdf{
-
+    background-color: transparent;
 }
 
 
+/*--------------- Nivel 03 -------------------- */
 
-.btn--twitter {
-  position: fixed;
-  bottom: 2rem;
-  right: 2rem;
-  
-  padding: .5rem;
-  
-  background: $blue;
-  
-  color: #fff;
-} */
+li.dados-tanque-individual {
+    height: 6vh;
+    padding-left: 1vh;
+}
 
-/* ____________________________________ Fim GOUGE _____________________________________________ */
+li.descricao-tanque-individual {
+    height: 6vh;
+}
+
+
+/*------------------  ----------------------*/
+
+.imagem-tCold {
+    height: 5vh;
+}
+
+.imagem-tHot {
+    height: 5vh;
+}
+
+.imagem-o2 {
+    height: 5vh;
+}

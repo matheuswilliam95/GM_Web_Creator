@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Quarto 01</title>
+
+<style type="text/css">
+
+.cabecalho
+{
+	height: 28vh;
+	background-color: rgb(30,30,30);
+	background-image: src="jogador.jpg";
+}	
+
+body
+{
+	margin: 0px;
+	background-color: rgb(30,30,30);
+}
+
+.conteudo
+{
+	height: 72vh;	
+	background-color: rgb(50,50,50);
+	margin: 1vh;
+	margin-top: 0vh;
+}
+.titulo
+{
+	color: rgb(255,255,255);
+	font-size: 6vh;
+	text-align: center;
+	padding-top: 3.5vh;
+	font-family: arial;
+}
+
+.valor
+{
+	color: rgb(255,255,255);
+	font-size: 5vh;
+	list-style: none;
+}
+
+.clima 
+{
+	color: rgb(230,230,230);
+	font-size: 2vh;
+	list-style: none;
+
+display:inline-block;
+}
+
+.lista-pai
+{
+	list-style-position: horizontal;
+	display: inline-block;
+}
+.pai-pai
+{
+	text-align: center;
+	float: center;
+
+}
+.neto
+{
+	text-align: center;
+
+}
+#bt-led-red
+{
+	background-color: rgb(255,0,0);
+	color: rgb(255,255,255);
+}
+
+#bt-led-green
+{
+	background-color: rgb(0,255,0);
+
+}
+
+#bt-led-blue
+{
+	background-color: rgb(0,0,255);
+	color: rgb(255,255,255);
+}
+
+.botoes 
+{
+	height: 10vh;
+	width: 10vh;
+	font-size: 2vh;
+}
+
+.lista-botoes
+{
+	display: inline-block;
+
+}
+
+.tio{
+	text-align: center;
+	padding-top:  5vh;
+}
+
+</style>
+
+
+</head>
+
+<body>
+	<div  class="cabecalho">
+		<h1 class="titulo">Quarto 01</h1>
+		<ul class="pai-pai">
+			<li class="lista-pai">
+				<ul class="neto" >
+					<li class="clima">temperatura</li>
+					<li class="valor">vt</li>
+				</ul>
+			</li>
+
+			<li class="lista-pai">
+				<ul  class="neto">
+					<li class="clima">umidade</li>
+					<li class="valor">vu</li>
+				</ul>
+			</li>
+
+			<li class="lista-pai">
+				<ul  class="neto">
+					<li class="clima">luminozidade</li>
+					<li class="valor">vl</li>
+				</ul>
+			</li>
+		</ul>
+		<div class="preto-imagem">
+
+		</div>
+	</div>
+
+	<div class="conteudo">
+		<ul class="tio">
+
+
+			<li class="lista-botoes">
+				<button  type="button" name="red" class="botoes" id="bt-led-red">
+					RED
+				</button>
+			</li>
+
+
+			<li class="lista-botoes">
+				<button  type="button" name="green" class="botoes" id="bt-led-green">
+					GREEN
+				</button>
+			</li>
+
+
+			<li class="lista-botoes">
+				<button  type="button" name="blue" class="botoes" id="bt-led-blue">
+					BLUE
+				</button>
+			</li>
+		</ul>
+ 	</div>
+</body>
+</html>

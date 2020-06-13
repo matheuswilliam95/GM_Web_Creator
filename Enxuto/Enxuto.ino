@@ -1,4 +1,5 @@
 #include <ESP8266WiFi.h>
+#include <WiFiClient.h>
 #include <ESP8266WiFiMulti.h>
 #include <ArduinoOTA.h> //Biblioteca Upload codigo por wifi
 #include <ESP8266WebServer.h>
@@ -9,9 +10,20 @@
 #include <WiFiUdp.h>
 #include <NTPClient.h>
 
+#include <OneWire.h>
+#include <DallasTemperature.h>
+
 #define DHTpin 14 //D5 of NodeMCU is GPIO14
 #define sLuz 16   // Sensor de luminosidade
 #define sensorCombustivel A0
+
+#define ONE_WIRE_BUS 2 // Sensores de Temperatura ONEWIRE
+
+/*______________________________ OneWIRE ________________________________*/
+OneWire oneWire(ONE_WIRE_BUS);       // Criando Objeto OneWire
+DallasTemperature sensors(&oneWire); // Pass our oneWire reference to Dallas Temperature.
+int numberOfDevices;                 // Number of temperature devices found in OneWire
+DeviceAddress tempDeviceAddress;     // We'll use this variable to store a found device address
 
 DHTesp dht;
 
@@ -25,6 +37,15 @@ const char *OTAName = "94777463"; // A name and a password for the OTA service
 const char *OTAPassword = "";
 const char *REDE = "Matheus";
 const char *SENHA = "94777463";
+
+#ifndef APSSID
+#define APSSID "Narnia";
+#define APPSK  "12345678";
+#endif
+
+/* Set these to your desired credentials. */
+const char *ssidAP = APSSID;
+const char *passwordAP = APPSK;
 
 //DEFINIÇÃO DE IP FIXO PARA O NODEMCU
 IPAddress ip(192, 168, 0, 11);      //COLOQUE UMA FAIXA DE IP DISPONÍVEL DO SEU ROTEADOR. EX: 192.168.1.110 **** ISSO VARIA, NO MEU CASO É: 192.168.0.175
@@ -44,6 +65,7 @@ bool LIGADO = 0;
 int contador = 0;
 
 int lastTime = 0;
+int lastTime1 = 0;
 
 int umidadeLocal = 0;
 int temperaturaLocal = 0;
@@ -55,7 +77,14 @@ int TempTanque01 = 0;
 int TempMaxTanque01 = 0;
 String TimetTempMaxTanque01 = "";
 int TempMinTanque01 = 0;
-String TimetTempMinTanque01 = "0";
+String TimetTempMinTanque01 = "";
+
+// Temperatura tanque 02
+int TempTanque02 = 0;
+int TempMaxTanque02 = 0;
+String TimetTempMaxTanque02 = "";
+int TempMinTanque02 = 0;
+String TimetTempMinTanque02 = "";
 
 // Luminosidade
 String luminosidadeLocal;
@@ -84,10 +113,27 @@ void setup()
   Serial.println("\r\n");
   Serial.println("Serial Iniciado");
 
+  //ONE WIRE - Sensore de temperatura
+  sensors.begin();                            // Start up the library - Sensores de temeratura oneWire
+  numberOfDevices = sensors.getDeviceCount(); // locate devices on the bus
+  Serial.print("Locating devices...");
+  Serial.print("Found ");
+  Serial.print(numberOfDevices, DEC);
+  Serial.println(" devices.");
+  // locate devices on the bus - ONEWIRE
+  Serial.print("Locating devices...");
+  Serial.print("Found ");
+  Serial.print(numberOfDevices, DEC);
+  Serial.println(" devices.");
+
   dht.setup(DHTpin, DHTesp::DHT11);
 
   // Relogio
   timeClient.begin();
+
+  WiFi.softAP(ssidAP, passwordAP);
+  IPAddress myIP = WiFi.softAPIP();
+  server.begin();
 
   delay(2000);
   startWiFi();      // Start a Wi-Fi access point, and try to connect to some given access points. Then wait for either an AP or STA connection
@@ -115,21 +161,18 @@ time_t prevDisplay = 0; // when the digital clock was displayed
 void loop()
 {
   // ------------------------------------ Atualizando Relógio -------------------------------
-  if ((millis() - lastTime)>10000)
+  if ((millis() - lastTime1) > 10000)
   {
+    lastTime1 = millis();
     //Relogio
     timeClient.update();
     hora = timeClient.getFormattedTime();
     Serial.println(hora);
   }
-  
 
   //------------------------------------- Loop Servidor ---------------------------------
   if ((millis() - lastTime) > 1000)
   {
-
-
-
     // Lendo nível combustível
     leituraCombustivel = analogRead(sensorCombustivel);
     nivelCombustivel = map(leituraCombustivel, 0, 1023, 0, 100);
@@ -153,47 +196,119 @@ void loop()
     temperaturaLocal = temperature;
     umidadeLocal = humidity;
 
-    // Atualização temperaturaS Tanque 01
-    TempTanque01 = temperaturaLocal;
+    //Lendo Temperaturas Tanques
+    sensors.requestTemperatures(); // Send the command to get temperatures
+    // Loop through each device, print out temperature data
+    for (int i = 0; i < numberOfDevices; i++)
+    {
+      // Search the wire for address
+      if (sensors.getAddress(tempDeviceAddress, i))
+      {
+
+        float tempC = sensors.getTempC(tempDeviceAddress);
+        switch (i)
+        {
+        case 0:
+          TempTanque02 = tempC;
+          break;
+
+        case 1:
+          TempTanque01 = tempC;
+          break;
+
+        default:
+          break;
+        }
+      }
+    }
+
+    // Atualização temperaturaS TANQUE 01 ////////////////////////////////////////////////
     horaNova = hora;
     if ((TempMaxTanque01 == 0) && (TempMinTanque01 == 0))
     {
-      TempMinTanque01 = temperaturaLocal;
-      TempMaxTanque01 = temperaturaLocal;
-      horaNova.remove(3, 3);
+      TempMinTanque01 = TempTanque01;
+      TempMaxTanque01 = TempTanque01;
+      horaNova.remove(5);
       TimetTempMaxTanque01 = horaNova;
       TimetTempMinTanque01 = horaNova;
     }
     if (TempTanque01 > TempMaxTanque01)
     {
       TempMaxTanque01 = TempTanque01;
-      horaNova.remove(3, 3);
+      horaNova.remove(5);
       TimetTempMaxTanque01 = horaNova;
     }
     else if (TempTanque01 < TempMinTanque01)
     {
       TempMinTanque01 = TempTanque01;
-      horaNova.remove(3, 3);
+      horaNova.remove(5);
       TimetTempMinTanque01 = horaNova;
+    }
+
+    if ((TimetTempMinTanque01 == "") && (TimetTempMaxTanque01 = ""))
+    {
+      horaNova.remove(5);
+      TimetTempMaxTanque01 = horaNova;
+      TimetTempMinTanque01 = horaNova;
+    }
+
+    // Atualização temperaturaS TANQUE 02 ////////////////////////////////////////////////
+    horaNova = String(hora);
+
+    if ((TempMaxTanque02 == 0) && (TempMinTanque02 == 0))
+    {
+      TempMinTanque02 = TempTanque02;
+      TempMaxTanque02 = TempTanque02;
+      horaNova.remove(5);
+      TimetTempMaxTanque02 = horaNova;
+      TimetTempMinTanque02 = horaNova;
+    }
+    if (TempTanque02 > TempMaxTanque02)
+    {
+      TempMaxTanque02 = TempTanque02;
+      horaNova.remove(5);
+      TimetTempMaxTanque02 = horaNova;
+    }
+    else if (TempTanque02 < TempMinTanque02)
+    {
+      TempMinTanque02 = TempTanque02;
+      horaNova.remove(5);
+      TimetTempMinTanque02 = horaNova;
+    }
+
+    if ((TimetTempMinTanque02 == "") && (TimetTempMaxTanque02 = ""))
+    {
+      horaNova.remove(5);
+      TimetTempMaxTanque02 = horaNova;
+      TimetTempMinTanque02 = horaNova;
     }
 
     // Envio da mensagem com dados para o servidor
     contador++;
-    String message = (String("T") +                                 // 00
-                      String("KK") + String(temperaturaLocal) +     // 01
-                      String("KK") + String("°C") +                 // 02
-                      String("KK") + String("U") +                  // 03
-                      String("KK") + String(umidadeLocal) +         // 04
-                      String("KK") + String("%") +                  // 05
-                      String("KK") + String("L") +                  // 06
-                      String("KK") + String(luminosidadeLocal) +    // 07
-                      String("KK") + String(" lm") +                // 08
-                      String("KK") + String(nivelCombustivel) +     // 09
-                      String("KK") + String(TempMaxTanque01) +      // 10
-                      String("KK") + String(TimetTempMaxTanque01) + // 11
-                      String("KK") + String(TempMinTanque01) +      // 12
-                      String("KK") + String(TimetTempMinTanque01) + // 13
-                      String("KK") + String(hora));                 // 14
+    String message = (String("T") +                              // 00
+                      String("KK") + String(temperaturaLocal) +  // 01
+                      String("KK") + String("°C") +              // 02
+                      String("KK") + String("U") +               // 03
+                      String("KK") + String(umidadeLocal) +      // 04
+                      String("KK") + String("%") +               // 05
+                      String("KK") + String("L") +               // 06
+                      String("KK") + String(luminosidadeLocal) + // 07
+                      String("KK") + String(" lm") +             // 08
+                      String("KK") + String(nivelCombustivel) +  // 09
+                      String("KK") + String(hora) +              // 10
+
+                      String("KK") + String(TempTanque01) +         // 11
+                      String("KK") + String(TempMaxTanque01) +      // 12
+                      String("KK") + String(TimetTempMaxTanque01) + // 13
+                      String("KK") + String(TempMinTanque01) +      // 14
+                      String("KK") + String(TimetTempMinTanque01) + // 15
+
+                      String("KK") + String(TempTanque02) +         // 16
+                      String("KK") + String(TempMaxTanque02) +      // 17
+                      String("KK") + String(TimetTempMaxTanque02) + // 18
+                      String("KK") + String(TempMinTanque02) +      // 19
+                      String("KK") + String(TimetTempMinTanque02)); // 20
+
     webSocket.broadcastTXT(message);
     lastTime = millis();
   }
@@ -465,4 +580,14 @@ String getContentType(String filename)
   else if (filename.endsWith(".gz"))
     return "application/x-gzip";
   return "text/plain";
+}
+
+void printAddress(DeviceAddress deviceAddress)
+{
+  for (uint8_t i = 0; i < 8; i++)
+  {
+    if (deviceAddress[i] < 16)
+      Serial.print("0");
+    Serial.print(deviceAddress[i], HEX);
+  }
 }

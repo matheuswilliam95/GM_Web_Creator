@@ -348,7 +348,7 @@ li.dados-tanques {
 ul.info-tanque-itens {
     display: inline-block;
     height: 3vh;
-    font-size: 1.5vh;
+    font-size: 2vh;
     font-family: Trebuchet, Arial, sans-serif;
     text-align: right;
     background-color: transparent;
@@ -358,7 +358,7 @@ ul.info-tanque-dados {
     padding-top: 3vh;
     display: inline-block;
     height: 3vh;
-    font-size: 1.5vh;
+    font-size: 2vh;
     font-family: Trebuchet, Arial, sans-serif;
     text-align: left;
     background-color: transparent;

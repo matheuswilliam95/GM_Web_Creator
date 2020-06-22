@@ -1,0 +1,392 @@
+* {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.divisao-cabecalho {
+    background-color: transparent;
+    /*coloca background do título transparente*/
+}
+
+.corpo {
+    background-color: rgb(43, 43, 43);
+    border-radius: 2vh;
+    padding-top: 3%;
+    padding-bottom: 3%;
+    padding-left: 3%;
+    padding-right: 3%;
+    margin: 5%;
+    margin-top: 1%;
+    margin: 3%;
+}
+
+.titulo {
+    font-size: 6vh;
+    /*tamanho da fonte do título da página*/
+    text-align: center;
+    /*alinhamento do título da pagina*/
+    padding-top: 5vh;
+    /*espaço do título até parte superior da pagina*/
+}
+
+body {
+    padding: 0%;
+    background-color: rgb(30, 30, 30);
+    color: white;
+}
+
+ul {
+    background: #ffc400;
+    display: flex;
+    list-style: none;
+    width: 100%;
+    font-size: 18px;
+    height: 5vh;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+a {
+    color: black;
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 1.8vh;
+    font-weight: bold;
+}
+
+header {
+    background: #000000;
+    height: 20vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    margin: 0;
+}
+
+nav {
+    position: sticky;
+    top: 0;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+#logo-img {
+    background-image: url("https://images.adsttc.com/media/images/5d70/0bd9/284d/d102/9500/05ef/medium_jpg/P_E_659-254-E_copy-MEDIA.jpg");
+    position: relative;
+    background-size: 100%;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    /* filter: blur(3px); */
+    background-color: black;
+}
+
+#logo-img-tanque {
+    background-image: url("fundoTanque.jpg");
+    position: relative;
+    background-size: 100%;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    /* filter: blur(3px); */
+    background-color: black;
+}
+
+.inf {
+    background-color: rgba(0, 0, 0, 65%);
+    width: 100%;
+    height: 100%;
+}
+
+.infor {
+    background-color: transparent;
+    position: absolute;
+    bottom: 10px;
+}
+
+.infor-resume {
+    color: rgba(255, 255, 255, 1);
+    opacity: 100%;
+    padding-bottom: 1vh;
+}
+
+.tit-val {
+    display: inline-block;
+    background-color: transparent;
+}
+
+.tit {
+    font-size: 1.5vh;
+    font-family: Arial, Helvetica, sans-serif;
+    text-shadow: 0.1em 0.1em 0.2em black;
+    padding-bottom: 1.2vh;
+    font-weight: 10;
+}
+
+.val {
+    font-size: 3vh;
+    font-family: Arial, Helvetica, sans-serif;
+    text-shadow: 0.1em 0.1em 0.2em black;
+    font-weight: 10;
+}
+
+#infor-temperatura {
+    font-size: 3.7vh;
+    font-weight: 500;
+}
+
+
+/*________________________________________________ Switch ___________________________________________________*/
+
+.onoffswitch {
+    position: relative;
+    width: 73px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.onoffswitch-checkbox {
+    display: none;
+}
+
+.onoffswitch-label {
+    display: block;
+    overflow: hidden;
+    cursor: pointer;
+    border: 2px solid #000000;
+    border-radius: 15px;
+}
+
+.onoffswitch-inner {
+    display: block;
+    width: 200%;
+    margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+
+.onoffswitch-inner:before,
+.onoffswitch-inner:after {
+    display: block;
+    float: left;
+    width: 50%;
+    height: 30px;
+    padding: 0;
+    line-height: 30px;
+    font-size: 14px;
+    color: white;
+    font-family: Trebuchet, Arial, sans-serif;
+    font-weight: bold;
+    box-sizing: border-box;
+}
+
+.onoffswitch-inner:before {
+    content: "ON";
+    padding-left: 10px;
+    background-color: #FFC400;
+    color: #000000;
+}
+
+.onoffswitch-inner:after {
+    content: "OFF";
+    padding-right: 10px;
+    background-color: #EEEEEE;
+    color: #000000;
+    text-align: right;
+}
+
+.onoffswitch-switch {
+    display: block;
+    width: 20px;
+    margin: 5px;
+    background: #FFFFFF;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 39px;
+    border: 2px solid #000000;
+    border-radius: 15px;
+    transition: all 0.3s ease-in 0s;
+}
+
+.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+
+.onoffswitch-checkbox:checked+.onoffswitch-label .onoffswitch-switch {
+    right: 0px;
+}
+
+
+/*__________________________________________________ Fim switch  _______________________________________________*/
+
+.icone {
+    width: 6vh;
+    height: 6vh;
+    background-color: transparent;
+}
+
+.itens {
+    margin-bottom: 1vh;
+}
+
+.itens-ratio {
+    background-color: rgb(55, 55, 55);
+    height: 12vh;
+    border-radius: 2vh;
+}
+
+.item-icon {
+    width: 25%;
+    text-align: center;
+}
+
+.item-descricao {
+    width: 50%;
+    text-align: left;
+    font-size: 2.5vh;
+}
+
+.item-mudador {
+    width: 25%;
+}
+
+.IDPAGE {
+    color: transparent;
+    font-size: 0vh;
+}
+
+
+/*---------------------------- sub divisoes ------------*/
+
+.icone-tanques {
+    padding-left: 1vh;
+    position: relative;
+    top: 1vh;
+    left: 1vh;
+    width: 20vh;
+    height: 10vh;
+    /* background-color: saddlebrown; */
+}
+
+
+/*------------------------------- fim sub divisoes ---------*/
+
+.tanques {}
+
+.rectangle {
+    position: relative;
+    background-attachment: fixed;
+    width: 8vh;
+    height: 7vh;
+    /* background: rgb(20, 20, 20); */
+    border: 0.5vh solid #303030;
+    border-top: 0.5vh solid transparent;
+    border-radius: 2vh;
+    border-top-left-radius: 0.5vh;
+    border-top-right-radius: 0.5vh;
+    background: url("water1.png");
+    background-repeat: repeat-x;
+    background-position-y: 1vh;
+    background-size: contain;
+    animation: animate linear 2s infinite;
+    box-shadow: 0 0 0 0.5vh #fff;
+}
+
+#tanque-01-icone {}
+
+
+/* 
+@keyframes animate {
+    0% {
+        background-position: 8.1vh;
+    }
+} */
+
+.volume-tanque {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    top: 1.5vh;
+    text-align: center;
+    font-size: 3vh;
+    font-family: Trebuchet, Arial, sans-serif;
+    font-weight: bolder;
+    text-shadow: 0.1vh 0.2vh 0.3vh #ffffff;
+    color: black;
+}
+
+
+/* -------------- Nivel 00 -- Menu Tanques ------- */
+
+ul.tanques {
+    background-color: rgb(55, 55, 55);
+    height: 17vh;
+    border-radius: 2vh;
+}
+
+
+/*--------------- Nivel 01 -------------------- */
+
+li.info-tanques {
+    width: 5vh;
+}
+
+li.dados-tanques {
+    width: 30vh;
+}
+
+
+/*--------------- Nivel 02 -------------------- */
+
+ul.info-tanque-itens {
+    display: inline-block;
+    height: 3vh;
+    font-size: 2vh;
+    font-family: Trebuchet, Arial, sans-serif;
+    text-align: right;
+    background-color: transparent;
+}
+
+ul.info-tanque-dados {
+    padding-top: 3vh;
+    display: inline-block;
+    height: 3vh;
+    font-size: 2vh;
+    font-family: Trebuchet, Arial, sans-serif;
+    text-align: left;
+    background-color: transparent;
+}
+
+
+/*--------------- Nivel 03 -------------------- */
+
+li.dados-tanque-individual {
+    height: 6vh;
+    padding-left: 1vh;
+}
+
+li.descricao-tanque-individual {
+    height: 6vh;
+}
+
+
+/*------------------  ----------------------*/
+
+.imagem-tCold {
+    height: 5vh;
+}
+
+.imagem-tHot {
+    height: 5vh;
+}
+
+.imagem-o2 {
+    height: 5vh;
+}

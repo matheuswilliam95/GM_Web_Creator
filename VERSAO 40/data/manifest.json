@@ -1,0 +1,11 @@
+{
+    "name": "LED Control",
+    "icons": [
+        {
+            "src": "\/peixinho.png",
+            "sizes": "144x144",
+            "type": "image\/png",
+            "density": "3.0"
+        }
+    ]
+}

@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title id="RW01">Tanque 01</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href='main.css' rel='stylesheet' type='text/css'>
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="144x144" href="/favicon-144x144.png">
+    <link rel="icon" type="image/png" sizes="48x48" href="/favicon.ico">
+    <link rel="manifest" href="/manifest.json">
+    <script type="text/javascript" src="data.json"></script>
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#00878f">
+    <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport'>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="WebSocket.js" type="text/javascript"></script>
+    <script src="jquery.js"></script>
+    <script>
+        $(document).ready(function() {
+            construir(conteudo);
+        });
+    </script>
+</head>
+
+<body>
+    <header>
+        <div id="logo-img-tanque">
+            <div class="inf">
+
+                <ul class="divisao-cabecalho">
+                    <!-- Divide o cabeçalho em duas partes-->
+
+                    <div id="RW1" class="titulo">
+                        Tanque 01
+                    </div>
+
+                    <!-- ------------------------------- Status Cabeçalho----------------- -->
+                    <ul class="infor">
+
+                        <!-- Item 01 -->
+                        <li class="infor-resume">
+                            <ul class="tit-val">
+                                <li class="tit">Temperatura</li>
+                                <li class="val" id="infor-temperatura">22°C</li>
+                            </ul>
+                        </li>
+
+                        <!-- Item 02 -->
+                        <li class="infor-resume">
+                            <ul class="tit-val">
+                                <li class="tit">Umidade</li>
+                                <li class="val" id="infor-umidade">86%</li>
+                            </ul>
+                        </li>
+
+                        <!-- Item 03 -->
+                        <li class="infor-resume">
+                            <ul class="tit-val">
+                                <li class="tit">Luminosidade</li>
+                                <li class="val" id="infor-luminosidade">7.6 klm</li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- ---------------------------------- Fim Status Cabeçalho ------------- -->
+                </ul>
+            </div>
+        </div>
+    </header>
+    <div>
+        <nav>
+            <ul>
+                <li class="li-menu"><a href="#">Index</a></li>
+                <li class="li-menu"><a href="#">Igreja</a></li>
+                <li class="li-menu"><a href="tanque 01.html">Tanque 01</a></li>
+                <li class="li-menu"><a href="casa.html">Casa</a></li>
+                <li class="li-menu"><a href="update.html">Update</a></li>
+            </ul>
+        </nav>
+
+        <!-- ---------------------------------------Inicio Itens --------------------------------------------- -->
+
+        <div class="corpo">
+            <div id="MathJax_Message" style="display: none;"></div>
+            <div class="geDiagramContainer" style="max-width: 100%; border: 1px solid transparent; position: relative; cursor: pointer; overflow: hidden; margin-top: 30px; width: 425px; height: 335px;" data-mxgraph="{&quot;highlight&quot;:&quot;#0000ff&quot;,&quot;nav&quot;:true,&quot;resize&quot;:true,&quot;toolbar&quot;:&quot;zoom layers lightbox&quot;,&quot;edit&quot;:&quot;_blank&quot;,&quot;xml&quot;:&quot;&lt;mxfile host=\&quot;app.diagrams.net\&quot; modified=\&quot;2020-05-03T15:47:23.503Z\&quot; agent=\&quot;5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/83.0.4103.34 Safari/537.36\&quot; etag=\&quot;MS7ta1XOH5Hqy7RzCSIC\&quot; version=\&quot;12.9.11\&quot; type=\&quot;google\&quot;&gt;&lt;diagram id=\&quot;ixHPeuXndRHuBZgAFUUE\&quot; name=\&quot;MatrixHOME\&quot;&gt;zZhdz5owGIZ/DYdL+qGCh3vZ+5FtJpsse7OddVCFrFhT69D9+lUo8tE6xlSUA0LvttBez52nT3Cwn+6eBVnHMx5R5iAQ7Rz8zkHI9ZC6H4R9IUy8aSEsRRIVEqyEIPlNtQi0uk0iumkMlJwzmaybYshXKxrKhkaE4Flz2IKz5lfXZEkNIQgJM9XXJJJxoXrIrfQXmizj8stwoveXknKw3skmJhHPahJ+dLAvOJfFU7rzKTuwK7kU855O9B4XJuhK/suEfZBRsX15/235IXs7C5E7neE3+i2/CNvqDX/+otoA6zXLfQkiixNJgzUJD+1MxdrBD7FMmWpB9Ug26wL/ItlR9cWHRcKYzxkX+XQ8AWQKXaVvpOA/aa0H5NdhBl/JU3qgF2LZdbkFKiTd1SRN4ZnylEqxV0N0r1pLMUVbEpdey6oAT7UU12JbakRbanl8c0VdPWjwfYJwKgqobxTuF7p6dSd0iIekjgzowcf/gt5lfYpDL2d6+yi0rX9MTjezvmtE4ev8TNfDHwRSdBe8R+Nu3hBagEPvarY3k40/v0SyiZTJXdwH+yK/roAdtmw+Aib2o1bHPrqaz6cm9U99gVvAjt0CbDMUAHhkUOBtnx8zeZfPr5ZYRibv72cn9r84uxmABSAYkBsmdlsABk3skxOnKzwzy9zRYdouaaymH7SksSSZ+SWg31Fqx6j7RB0NWsFgA3pRvJ8L/Y6K9/Z5ai1jJoNSHxvUX/0LnKd2sE/5ZTtnx4AOUcDYUotrKxtRf+CqWf2EyPtqf3Lw4x8=&lt;/diagram&gt;&lt;/mxfile&gt;&quot;}">
+                <svg style="left: 0px; top: 0px; width: 100%; height: 100%; display: block; min-width: 425px; min-height: 335px; background-color: transparent; background-image: none;">
+                    <defs>
+                        <filter id="dropShadow">
+                            <fegaussianblur in="SourceAlpha" stdDeviation="1.7" result="blur"></fegaussianblur>
+                            <feoffset in="blur" dx="3" dy="3" result="offsetBlur"></feoffset>
+                            <feflood flood-color="#3D4574" flood-opacity="0.4" result="offsetColor"></feflood>
+                            <fecomposite in="offsetColor" in2="offsetBlur" operator="in" result="offsetBlur">
+                            </fecomposite>
+                            <feblend in="SourceGraphic" in2="offsetBlur"></feblend>
+                        </filter>
+                    </defs>
+                    <g transformOrigin="0 0" transform="scale(1,1)translate(-152,-122)">
+                        <g></g>
+                        <g>
+                            <g transform="translate(0.5,0.5)" style="visibility: visible;">
+                                <rect x="360" y="310" width="90" height="90" fill="#60a917" stroke="#000000"
+                                    pointer-events="all"></rect>
+                            </g>
+                            <g style="">
+                                <g>
+                                    <foreignobject style="overflow: visible; text-align: left;" pointer-events="none"
+                                        width="100%" height="100%">
+                                        <div
+                                            style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 88px; height: 1px; padding-top: 355px; margin-left: 361px;">
+                                            <div style="box-sizing: border-box; font-size: 0; text-align: center; ">
+                                                <div
+                                                    style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: all; font-weight: bold; white-space: normal; word-wrap: normal; ">
+                                                    QT 03</div>
+                                            </div>
+                                        </div>
+                                    </foreignobject>
+                                </g>
+                            </g>
+                            <g transform="translate(0.5,0.5)" style="visibility: visible;">
+                                <rect x="230" y="310" width="130" height="90" fill="#60a917" stroke="#000000"
+                                    pointer-events="all"></rect>
+                            </g>
+                            <g style="">
+                                <g>
+                                    <foreignobject style="overflow: visible; text-align: left;" pointer-events="none"
+                                        width="100%" height="100%">
+                                        <div
+                                            style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 128px; height: 1px; padding-top: 355px; margin-left: 231px;">
+                                            <div style="box-sizing: border-box; font-size: 0; text-align: center; ">
+                                                <div
+                                                    style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: all; font-weight: bold; white-space: normal; word-wrap: normal; ">
+                                                    QT 02</div>
+                                            </div>
+                                        </div>
+                                    </foreignobject>
+                                </g>
+                            </g>
+                            <g transform="translate(0.5,0.5)" style="visibility: visible;">
+                                <rect x="360" y="220" width="90" height="90" fill="#e3c800" stroke="#000000"
+                                    pointer-events="all"></rect>
+                            </g>
+                            <g style="">
+                                <g>
+                                    <foreignobject style="overflow: visible; text-align: left;" pointer-events="none"
+                                        width="100%" height="100%">
+                                        <div
+                                            style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 88px; height: 1px; padding-top: 265px; margin-left: 361px;">
+                                            <div style="box-sizing: border-box; font-size: 0; text-align: center; ">
+                                                <div
+                                                    style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: all; font-weight: bold; white-space: normal; word-wrap: normal; ">
+                                                    SL 02</div>
+                                            </div>
+                                        </div>
+                                    </foreignobject>
+                                </g>
+                            </g>
+                            <g transform="translate(0.5,0.5)" style="visibility: visible;">
+                                <rect x="450" y="220" width="110" height="180" fill="#1ba1e2" stroke="#000000"
+                                    pointer-events="all"></rect>
+                            </g>
+                            <g style="">
+                                <g>
+                                    <foreignobject style="overflow: visible; text-align: left;" pointer-events="none"
+                                        width="100%" height="100%">
+                                        <div
+                                            style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 108px; height: 1px; padding-top: 310px; margin-left: 451px;">
+                                            <div style="box-sizing: border-box; font-size: 0; text-align: center; ">
+                                                <div
+                                                    style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: all; font-weight: bold; white-space: normal; word-wrap: normal; ">
+                                                    VR</div>
+                                            </div>
+                                        </div>
+                                    </foreignobject>
+                                </g>
+                            </g>
+                            <g transform="translate(0.5,0.5)" style="visibility: visible;">
+                                <rect x="160" y="400" width="400" height="40" fill="#d80073" stroke="#000000"
+                                    pointer-events="all"></rect>
+                            </g>
+                            <g style="">
+                                <g>
+                                    <foreignobject style="overflow: visible; text-align: left;" pointer-events="none"
+                                        width="100%" height="100%">
+                                        <div
+                                            style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 398px; height: 1px; padding-top: 420px; margin-left: 161px;">
+                                            <div style="box-sizing: border-box; font-size: 0; text-align: center; ">
+                                                <div
+                                                    style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #ffffff; line-height: 1.2; pointer-events: all; font-weight: bold; white-space: normal; word-wrap: normal; ">
+                                                    CR 02</div>
+                                            </div>
+                                        </div>
+                                    </foreignobject>
+                                </g>
+                            </g>
+                            <g transform="translate(0.5,0.5)" style="visibility: visible;">
+                                <rect x="450" y="130" width="110" height="90" fill="#008a00" stroke="#005700"
+                                    pointer-events="all"></rect>
+                            </g>
+                            <g style="">
+                                <g>
+                                    <foreignobject style="overflow: visible; text-align: left;" pointer-events="none"
+                                        width="100%" height="100%">
+                                        <div
+                                            style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 108px; height: 1px; padding-top: 175px; margin-left: 451px;">
+                                            <div style="box-sizing: border-box; font-size: 0; text-align: center; ">
+                                                <div
+                                                    style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #ffffff; line-height: 1.2; pointer-events: all; font-weight: bold; white-space: normal; word-wrap: normal; ">
+                                                    CP</div>
+                                            </div>
+                                        </div>
+                                    </foreignobject>
+                                </g>
+                            </g>
+                            <g transform="translate(0.5,0.5)" style="visibility: visible;">
+                                <rect x="360" y="130" width="90" height="90" fill="#f0a30a" stroke="#000000"
+                                    pointer-events="all"></rect>
+                            </g>
+                            <g style="">
+                                <g>
+                                    <foreignobject style="overflow: visible; text-align: left;" pointer-events="none"
+                                        width="100%" height="100%">
+                                        <div
+                                            style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 88px; height: 1px; padding-top: 175px; margin-left: 361px;">
+                                            <div style="box-sizing: border-box; font-size: 0; text-align: center; ">
+                                                <div
+                                                    style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: all; font-weight: bold; white-space: normal; word-wrap: normal; ">
+                                                    CZ</div>
+                                            </div>
+                                        </div>
+                                    </foreignobject>
+                                </g>
+                            </g>
+                            <g transform="translate(0.5,0.5)" style="visibility: visible;">
+                                <rect x="230" y="130" width="130" height="90" fill="#e3c800" stroke="#000000"
+                                    pointer-events="all"></rect>
+                            </g>
+                            <g style="">
+                                <g>
+                                    <foreignobject style="overflow: visible; text-align: left;" pointer-events="none"
+                                        width="100%" height="100%">
+                                        <div
+                                            style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 128px; height: 1px; padding-top: 175px; margin-left: 231px;">
+                                            <div style="box-sizing: border-box; font-size: 0; text-align: center; ">
+                                                <div
+                                                    style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: all; font-weight: bold; white-space: normal; word-wrap: normal; ">
+                                                    SL 01</div>
+                                            </div>
+                                        </div>
+                                    </foreignobject>
+                                </g>
+                            </g>
+                            <g transform="translate(0.5,0.5)" style="visibility: visible;">
+                                <rect x="320" y="220" width="40" height="90" fill="#d80073" stroke="#000000"
+                                    pointer-events="all"></rect>
+                            </g>
+                            <g style="">
+                                <g>
+                                    <foreignobject style="overflow: visible; text-align: left;" pointer-events="none"
+                                        width="100%" height="100%">
+                                        <div
+                                            style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 38px; height: 1px; padding-top: 265px; margin-left: 321px;">
+                                            <div style="box-sizing: border-box; font-size: 0; text-align: center; ">
+                                                <div
+                                                    style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #ffffff; line-height: 1.2; pointer-events: all; font-weight: bold; white-space: normal; word-wrap: normal; ">
+                                                    CR 01</div>
+                                            </div>
+                                        </div>
+                                    </foreignobject>
+                                </g>
+                            </g>
+                            <g transform="translate(0.5,0.5)" style="visibility: visible;">
+                                <rect x="160" y="220" width="160" height="90" fill="#60a917" stroke="#000000"
+                                    pointer-events="all"></rect>
+                            </g>
+                            <g style="">
+                                <g>
+                                    <foreignobject style="overflow: visible; text-align: left;" pointer-events="none"
+                                        width="100%" height="100%">
+                                        <div
+                                            style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 158px; height: 1px; padding-top: 265px; margin-left: 161px;">
+                                            <div style="box-sizing: border-box; font-size: 0; text-align: center; ">
+                                                <div
+                                                    style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #000000; line-height: 1.2; pointer-events: all; font-weight: bold; white-space: normal; word-wrap: normal; ">
+                                                    QT 01</div>
+                                            </div>
+                                        </div>
+                                    </foreignobject>
+                                </g>
+                            </g>
+                            <g transform="translate(0.5,0.5)" style="visibility: visible;">
+                                <rect x="160" y="130" width="70" height="120" fill="#0050ef" stroke="#000000"
+                                    pointer-events="all"></rect>
+                            </g>
+                            <g style="">
+                                <g>
+                                    <foreignobject style="overflow: visible; text-align: left;" pointer-events="none"
+                                        width="100%" height="100%">
+                                        <div
+                                            style="display: flex; align-items: unsafe center; justify-content: unsafe center; width: 68px; height: 1px; padding-top: 190px; margin-left: 161px;">
+                                            <div style="box-sizing: border-box; font-size: 0; text-align: center; ">
+                                                <div
+                                                    style="display: inline-block; font-size: 12px; font-family: Helvetica; color: #FFFFFF; line-height: 1.2; pointer-events: all; font-weight: bold; white-space: normal; word-wrap: normal; ">
+                                                    WC</div>
+                                            </div>
+                                        </div>
+                                    </foreignobject>
+                                </g>
+                            </g>
+                        </g>
+                        <g></g>
+                        <g></g>
+                    </g>
+                </svg>
+                <div class="resize-sensor" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px; overflow: hidden; z-index: -1; visibility: hidden;">
+                    <div class="resize-sensor-expand" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;">
+                        <div style="position: absolute; left: 0px; top: 0px; transition: all 0s ease 0s; width: 100000px; height: 100000px;">
+                        </div>
+                    </div>
+                    <div class="resize-sensor-shrink" style="position: absolute; left: 0; top: 0; right: 0; bottom: 0; overflow: hidden; z-index: -1; visibility: hidden;">
+                        <div style="position: absolute; left: 0; top: 0; transition: 0s; width: 200%; height: 200%">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <script type="text/javascript" src="./MatrixHOME_files/viewer.min.js.download"></script>
+            <script type="text/javascript" src="./MatrixHOME_files/MathJax.js.download"></script>
+
+        </Div>
+        <!-- ---------------------------------------Fim Itens --------------------------------------------- -->
+
+    </div>
+
+</body>
+
+<footer onload="construir()">
+    <p class="IDPAGE" id="IDPAGE">
+        RW01
+    </p>
+</footer>
+
+</html>
